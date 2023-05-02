@@ -6,7 +6,7 @@
 #    By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/02 17:20:24 by gsmereka          #+#    #+#              #
-#    Updated: 2023/05/02 17:47:13 by gsmereka         ###   ########.fr        #
+#    Updated: 2023/05/02 17:52:14 by gsmereka         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,12 @@ OBJ 	=	$(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
 
 OBJ_DIR	=	./obj
 
+HEADERS =	./headers/philo.h ./headers/structs.h
+
+CCFLAGS =	-Wall -Wextra -Werror
+
+RM		=	rm -f
+
 # PARAMETERS
 
 NUMBER_OF_PHILOSOPHERS = 1
@@ -25,15 +31,10 @@ TIME_TO_DIE = 1
 TIME_TO_EAT = 1
 TIME_TO_SLEEP = 1
 NUMBER_OF_TIMES_EACH_PHILOSOPHER_MUST_EAT = 1
-PARAMETERS = $(NUMBER_OF_PHILOSOPHERS) $(TIME_TO_DIE) $(TIME_TO_EAT) $(TIME_TO_SLEEP) $(NUMBER_OF_TIMES_EACH_PHILOSOPHER_MUST_EAT)
 
-# MAKEFILE UTILS 
-
-HEADERS =	./headers/philo.h ./headers/structs.h
-
-CCFLAGS =	-Wall -Wextra -Werror
-
-RM		=	rm -f
+PARAMETERS =	$(NUMBER_OF_PHILOSOPHERS) $(TIME_TO_DIE) \
+				$(TIME_TO_EAT) $(TIME_TO_SLEEP) \
+				$(NUMBER_OF_TIMES_EACH_PHILOSOPHER_MUST_EAT) \
 
 # RULES
 all: $(NAME) ascii_draw
@@ -43,11 +44,11 @@ $(OBJ_DIR)/%.o: %.c
 	cc $(CCFLAGS) -c $< -o $@
 
 # MANDATORY COMPILE
-$(NAME): $(OBJ) $(HEADERS) $(LIBFT_A)
+$(NAME): $(OBJ) $(HEADERS)
 	cc $(CCFLAGS) -o $(NAME) $(OBJ) $(READLINE_FLAG)
 
 exec: $(NAME)
-	./philo
+	./philo $(PARAMETERS)
 
 ascii_draw:
 	@echo "\033[1;35m"
