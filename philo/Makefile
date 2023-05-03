@@ -6,25 +6,27 @@
 #    By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/02 17:20:24 by gsmereka          #+#    #+#              #
-#    Updated: 2023/05/02 17:52:14 by gsmereka         ###   ########.fr        #
+#    Updated: 2023/05/02 22:05:35 by gsmereka         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME 	=	philo
+NAME 		=	philo
 
-SRC 	=	src/main.c \
+SRC 		=	src/main.c \
 
-OBJ 	=	$(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
+OBJ 		=	$(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
 
-OBJ_DIR	=	./obj
+OBJ_DIR		=	./obj
 
-HEADERS =	./headers/philo.h ./headers/structs.h
+HEADERS 	=	./headers/philo.h ./headers/structs.h
 
-CCFLAGS =	-Wall -Wextra -Werror
+CCFLAGS 	=	-Wall -Wextra -Werror
 
-RM		=	rm -f
+THREAD_FLAG =	-pthread
 
-# PARAMETERS
+RM			=	rm -f
+
+# PHILO_ARGS (in Miliseconds)
 
 NUMBER_OF_PHILOSOPHERS = 1
 TIME_TO_DIE = 1
@@ -32,23 +34,23 @@ TIME_TO_EAT = 1
 TIME_TO_SLEEP = 1
 NUMBER_OF_TIMES_EACH_PHILOSOPHER_MUST_EAT = 1
 
-PARAMETERS =	$(NUMBER_OF_PHILOSOPHERS) $(TIME_TO_DIE) \
-				$(TIME_TO_EAT) $(TIME_TO_SLEEP) \
-				$(NUMBER_OF_TIMES_EACH_PHILOSOPHER_MUST_EAT) \
+PHILO_ARGS		 =	$(NUMBER_OF_PHILOSOPHERS) $(TIME_TO_DIE) \
+					$(TIME_TO_EAT) $(TIME_TO_SLEEP) \
+					$(NUMBER_OF_TIMES_EACH_PHILOSOPHER_MUST_EAT) \
 
 # RULES
 all: $(NAME) ascii_draw
 
 $(OBJ_DIR)/%.o: %.c
 	make create_obj_dir
-	cc $(CCFLAGS) -c $< -o $@
+	cc $(CCFLAGS) $(THREAD_FLAG) -c $< -o $@
 
 # MANDATORY COMPILE
 $(NAME): $(OBJ) $(HEADERS)
-	cc $(CCFLAGS) -o $(NAME) $(OBJ) $(READLINE_FLAG)
+	cc $(CCFLAGS) $(THREAD_FLAG) -o $(NAME) $(OBJ) $(READLINE_FLAG)
 
-exec: $(NAME)
-	./philo $(PARAMETERS)
+run: $(NAME)
+	./philo $(PHILO_ARGS)
 
 ascii_draw:
 	@echo "\033[1;35m"
@@ -82,4 +84,4 @@ git: fclean
 valgrind: $(NAME)
 	valgrind --suppressions=$$PWD/tester/readline.supp --leak-check=full --show-leak-kinds=all --trace-children=yes ./philo
 
-.PHONY: all clean fclean re create_obj_dir git ascii_draw exec
+.PHONY: all clean fclean re create_obj_dir git ascii_draw run
