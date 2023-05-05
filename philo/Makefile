@@ -6,7 +6,7 @@
 #    By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/02 17:20:24 by gsmereka          #+#    #+#              #
-#    Updated: 2023/05/05 14:34:18 by gsmereka         ###   ########.fr        #
+#    Updated: 2023/05/05 14:57:54 by gsmereka         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ SRC 		=	src/main.c \
 				utils/ft_strlen.c \
 				utils/ft_substr.c \
 				utils/ft_utoa.c \
+				utils/ft_atoi.c \
 
 OBJ 		=	$(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
 
@@ -103,6 +104,6 @@ git: fclean
 	git add . && clear && git status
 
 valgrind: $(NAME)
-	valgrind --suppressions=$$PWD/tester/readline.supp --leak-check=full --show-leak-kinds=all --trace-children=yes ./philo
+	valgrind --leak-check=full --show-leak-kinds=all ./philo $(PHILO_ARGS)
 
 .PHONY: all clean fclean re create_obj_dir git ascii_draw run

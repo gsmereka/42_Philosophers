@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 17:27:17 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/05 14:31:52 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/05 14:54:59 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int		ft_strncmp(const char *s1, const char *s2, size_t n);
 int		ft_printf(const char *s, ...);
 int		ft_toupper(int c);
 int		ft_isdigit(int c);
+int		ft_atoi(const char *str);
 char	*ft_itoa(int n);
 char	*ft_utoa(unsigned int n);
 char	*ft_itohex(unsigned long long n);
