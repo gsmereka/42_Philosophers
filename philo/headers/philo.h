@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 17:27:17 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/05 12:47:12 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/05 14:31:52 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,26 @@
 // Init Data
 void	init_data(t_data *data);
 void	check_args(int argc, char *argv[], t_data *data);
+
+// Utils
+int		validate_int(char *arg, t_data *data);
+char	*ft_strchr(const char *s, int c);
+char	*ft_strdup(char *s);
+char	*ft_strjoin(char *s1, char *s2);
+size_t	ft_strlen(const char *s);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
+char	**ft_split(char const *s, char c);
+size_t	ft_strlcpy(char *dst, const char *src, size_t size);
+void	*ft_calloc(size_t nmemb, size_t size);
+void	ft_bzero(void *s, size_t n);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
+int		ft_printf(const char *s, ...);
+int		ft_toupper(int c);
+int		ft_isdigit(int c);
+char	*ft_itoa(int n);
+char	*ft_utoa(unsigned int n);
+char	*ft_itohex(unsigned long long n);
+void	ft_putchar_fd(char c, int fd);
+void	ft_putstr_fd(char *s, int fd);
 
 #endif

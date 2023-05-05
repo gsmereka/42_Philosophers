@@ -6,7 +6,7 @@
 #    By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/02 17:20:24 by gsmereka          #+#    #+#              #
-#    Updated: 2023/05/05 12:46:04 by gsmereka         ###   ########.fr        #
+#    Updated: 2023/05/05 14:34:18 by gsmereka         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,24 @@ NAME 		=	philo
 SRC 		=	src/main.c \
 				src/check_args.c \
 				src/init_data.c \
+				utils/ft_bzero.c \
+				utils/ft_isdigit.c \
+				utils/ft_itohex.c \
+				utils/ft_putchar_fd.c \
+				utils/ft_split.c \
+				utils/ft_strdup.c \
+				utils/ft_strlcpy.c \
+				utils/ft_strncmp.c \
+				utils/ft_toupper.c \
+				utils/validate_int.c \
+				utils/ft_calloc.c \
+				utils/ft_itoa.c \
+				utils/ft_putstr_fd.c \
+				utils/ft_strchr.c \
+				utils/ft_strjoin.c \
+				utils/ft_strlen.c \
+				utils/ft_substr.c \
+				utils/ft_utoa.c \
 
 OBJ 		=	$(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
 
@@ -30,11 +48,11 @@ RM			=	rm -f
 
 # PHILO_ARGS (in Miliseconds)
 
-NUMBER_OF_PHILOSOPHERS = 1
-TIME_TO_DIE = 1
-TIME_TO_EAT = 1
-TIME_TO_SLEEP = 1
-NUMBER_OF_TIMES_EACH_PHILOSOPHER_MUST_EAT = 1
+NUMBER_OF_PHILOSOPHERS = 3
+TIME_TO_DIE = 1000
+TIME_TO_EAT = 1000
+TIME_TO_SLEEP = 1000
+NUMBER_OF_TIMES_EACH_PHILOSOPHER_MUST_EAT = 3
 
 PHILO_ARGS		 =	$(NUMBER_OF_PHILOSOPHERS) $(TIME_TO_DIE) \
 					$(TIME_TO_EAT) $(TIME_TO_SLEEP) \
@@ -78,6 +96,7 @@ re: fclean all
 create_obj_dir:
 	@mkdir -p $(OBJ_DIR)
 	@mkdir -p $(OBJ_DIR)/src
+	@mkdir -p $(OBJ_DIR)/utils
 
 ## FULL CLEAN ALL OBJECTS
 git: fclean

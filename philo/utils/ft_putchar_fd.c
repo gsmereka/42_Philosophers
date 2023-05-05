@@ -1,31 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   structs.h                                          :+:      :+:    :+:   */
+/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/02 17:27:20 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/05 12:51:36 by gsmereka         ###   ########.fr       */
+/*   Created: 2022/06/22 09:11:11 by gsmereka          #+#    #+#             */
+/*   Updated: 2023/05/05 14:24:36 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STRUCTS_H
-# define STRUCTS_H
+#include "../headers/philo.h"
 
-typedef	struct	s_config
+void	ft_putchar_fd(char c, int fd)
 {
-	int			number_of_philosophers;
-	int			time_to_die;
-	int			time_to_eat;
-	int			time_to_sleep;
-	int			number_of_times_each_philosopher_must_eat;
-	int			time_to_think;
-}	t_config;
-
-typedef struct s_data
-{
-	t_config	*config;
-}	t_data;
-
-#endif
+	write(fd, &c, 1);
+}

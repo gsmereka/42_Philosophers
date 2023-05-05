@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   structs.h                                          :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/02 17:27:20 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/05 12:51:36 by gsmereka         ###   ########.fr       */
+/*   Created: 2022/04/19 19:24:31 by gsmereka          #+#    #+#             */
+/*   Updated: 2023/05/05 14:24:36 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STRUCTS_H
-# define STRUCTS_H
+#include "../headers/philo.h"
 
-typedef	struct	s_config
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	int			number_of_philosophers;
-	int			time_to_die;
-	int			time_to_eat;
-	int			time_to_sleep;
-	int			number_of_times_each_philosopher_must_eat;
-	int			time_to_think;
-}	t_config;
+	size_t			i;
+	unsigned int	r;
 
-typedef struct s_data
-{
-	t_config	*config;
-}	t_data;
-
-#endif
+	i = 0;
+	while ((s1[i] || s2[i]) && i < n)
+	{
+		if (s1[i] != s2[i])
+		{
+			r = (unsigned char)s1[i] - (unsigned char)s2[i];
+			return (r);
+		}
+		i++;
+	}
+	return (0);
+}
