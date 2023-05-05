@@ -1,22 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   structs.h                                          :+:      :+:    :+:   */
+/*   init_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/02 17:27:20 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/05 11:42:21 by gsmereka         ###   ########.fr       */
+/*   Created: 2023/05/05 12:41:41 by gsmereka          #+#    #+#             */
+/*   Updated: 2023/05/05 12:46:13 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STRUCTS_H
-# define STRUCTS_H
+#include "../headers/philo.h"
 
-typedef struct s_data
+void	init_data(t_data *data)
 {
-	int		time_to_eat;
-	int		time_to_think;
-}	t_data;
-
-#endif
+	(void)data;
+}

@@ -1,22 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   structs.h                                          :+:      :+:    :+:   */
+/*   check_args.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/02 17:27:20 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/05 11:42:21 by gsmereka         ###   ########.fr       */
+/*   Created: 2023/05/05 12:41:41 by gsmereka          #+#    #+#             */
+/*   Updated: 2023/05/05 12:47:06 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STRUCTS_H
-# define STRUCTS_H
+#include "../headers/philo.h"
 
-typedef struct s_data
+void	check_args(int argc, char *argv[], t_data *data)
 {
-	int		time_to_eat;
-	int		time_to_think;
-}	t_data;
-
-#endif
+	(void)data;
+	(void)argc;
+	(void)argv;
+	printf("Fazenda\n");
+}
