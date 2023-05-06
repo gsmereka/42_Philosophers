@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 17:27:17 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/05 21:33:20 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/06 10:23:12 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 # include <unistd.h>
 # include <sys/time.h>
 # include <pthread.h>
-# include <stdio.h> // Tirar Depois
+# include <stdio.h>
 
 // Init Data
 void	init_data(char *argv[], t_data *data);

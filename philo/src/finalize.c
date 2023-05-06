@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 21:22:12 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/05 22:22:48 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/06 17:23:24 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,14 @@ static void	free_data(t_data *data)
 {
 	if (data->config)
 		free(data->config);
-	if (data->forks)
-		free_array_list((void **)data->forks);
 	if (data->philosophers)
 		free_array_list((void **)data->philosophers);
+	if (data->philo_threads)
+		free_array_list((void **)data->philo_threads);
+	if (data->forks)
+		free_array_list((void **)data->forks);
+	if (data->mutex)
+		free(data->mutex);
 }
 
 void	free_array_list(void **list)

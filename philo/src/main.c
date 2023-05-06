@@ -6,26 +6,59 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 17:36:24 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/05 22:20:39 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/06 17:06:12 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/philo.h"
 
-// void	*philosopher_routine(void *philosopher)
-// {
-// 	pthread_mutex_lock(&philosopher->mutex);
-// 	printf("pegou o garfo %d\n", 2);
-// 	pthread_mutex_unlock(&philosopher->mutex);
-// }
+void	philo_eat(t_data *data)
+{
+	printf("Eating\n");
+}
+
+void	philo_think(t_data *data)
+{
+	printf("thinking\n");
+}
+
+void	philo_sleep(t_data *data)
+{
+	printf("sleeping\n");
+}
+
+void	*philosopher_routine(void *data)
+{
+	// wait_init(data);
+	// print_init(data);
+	// while ()
+	// {
+		philo_eat(data);
+		philo_sleep(data);
+		philo_think(data);
+	// }
+}
+
+void	init_philosophers(t_data *data)
+{
+	int	philo;
+
+	philo = 0;
+	// while ((philo < data->config->number_of_philosophers))
+	// {
+	// 	pthread_create(&data->philo_threads[philo], NULL, &philosopher_routine, data);
+	// 	philo++;
+	// }
+}
 
 int	main(int argc, char *argv[])
 {
 	t_data data;
 
-	ft_bzero(&data, sizeof(t_data));
 	check_args(argc, argv, &data);
 	init_data(argv, &data);
+	init_philosophers(&data);
+	// philosopher_routine(&data);
 	finalize(&data);
 }
 
