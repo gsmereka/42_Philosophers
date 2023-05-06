@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 17:36:24 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/06 17:43:54 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/06 18:31:58 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,12 @@ void	init_philosophers(t_data *data)
 	while ((philo < data->config->number_of_philosophers))
 	{
 		pthread_create(data->philo_threads[philo], NULL, &philosopher_routine, data);
+		philo++;
+	}
+	philo = 0;
+	while ((philo < data->config->number_of_philosophers))
+	{
+		pthread_join((*data->philo_threads[philo]), NULL);
 		philo++;
 	}
 }
