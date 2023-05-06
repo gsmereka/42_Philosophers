@@ -6,11 +6,18 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 17:36:24 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/05 21:33:31 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/05 22:20:39 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/philo.h"
+
+// void	*philosopher_routine(void *philosopher)
+// {
+// 	pthread_mutex_lock(&philosopher->mutex);
+// 	printf("pegou o garfo %d\n", 2);
+// 	pthread_mutex_unlock(&philosopher->mutex);
+// }
 
 int	main(int argc, char *argv[])
 {
@@ -21,19 +28,6 @@ int	main(int argc, char *argv[])
 	init_data(argv, &data);
 	finalize(&data);
 }
-
-// pthread_mutex_t	mutex;
-
-// void	*routine(void *i)
-// {
-// 	int	number;
-
-// 	pthread_mutex_lock(&mutex);
-// 	number = *(int *)i;
-// 	printf("Counting: %d\n", number);
-// 	(*(int *)i)++;
-// 	pthread_mutex_unlock(&mutex);
-// }
 
 
 // int	main(int argc, char *argv[])
