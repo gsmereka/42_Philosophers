@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 17:36:24 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/05 12:46:54 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/05 15:03:46 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	main(int argc, char *argv[])
 	t_data data;
 
 	check_args(argc, argv, &data);
-	init_data(&data);
+	init_data(argv, &data);
 }
 
 // pthread_mutex_t	mutex;

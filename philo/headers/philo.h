@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 17:27:17 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/05 14:54:59 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/05 15:03:58 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 # include <stdio.h> // Tirar Depois
 
 // Init Data
-void	init_data(t_data *data);
+void	init_data(char *argv[], t_data *data);
 void	check_args(int argc, char *argv[], t_data *data);
 
 // Utils
