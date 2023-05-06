@@ -6,7 +6,7 @@
 #    By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/02 17:20:24 by gsmereka          #+#    #+#              #
-#    Updated: 2023/05/05 21:22:07 by gsmereka         ###   ########.fr        #
+#    Updated: 2023/05/06 17:45:46 by gsmereka         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -72,7 +72,7 @@ $(NAME): $(OBJ) $(HEADERS)
 	cc $(CCFLAGS) $(THREAD_FLAG) -o $(NAME) $(OBJ) $(READLINE_FLAG)
 
 run: $(NAME)
-	./philo $(PHILO_ARGS)
+	clear && ./philo $(PHILO_ARGS)
 
 ascii_draw:
 	@echo "\033[1;35m"
@@ -105,6 +105,6 @@ git: fclean
 	git add . && clear && git status
 
 valgrind: $(NAME)
-	valgrind --leak-check=full --show-leak-kinds=all ./philo $(PHILO_ARGS)
+	clear && valgrind --leak-check=full --show-leak-kinds=all ./philo $(PHILO_ARGS)
 
 .PHONY: all clean fclean re create_obj_dir git ascii_draw run

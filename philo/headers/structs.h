@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 17:27:20 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/06 17:34:34 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/06 17:36:56 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 typedef struct	s_fork
 {
 	int	holder;
+	int look;
 }	t_fork;
 
 typedef struct	s_philosopher
