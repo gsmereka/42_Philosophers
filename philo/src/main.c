@@ -6,44 +6,19 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 17:36:24 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/06 18:31:58 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/06 19:48:08 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/philo.h"
-
-void	philo_eat(t_data *data)
-{
-	printf("Eating\n");
-}
-
-void	philo_think(t_data *data)
-{
-	printf("thinking\n");
-}
-
-void	philo_sleep(t_data *data)
-{
-	printf("sleeping\n");
-}
-
-void	*philosopher_routine(void *data)
-{
-	// wait_init(data);
-	// print_init(data);
-	// while ()
-	// {
-		philo_eat(data);
-		philo_sleep(data);
-		philo_think(data);
-	// }
-}
 
 void	init_philosophers(t_data *data)
 {
 	int	philo;
 
 	philo = 0;
+	data->philo_count = 0;
+	pthread_mutex_init(data->mutex, NULL);
 	while ((philo < data->config->number_of_philosophers))
 	{
 		pthread_create(data->philo_threads[philo], NULL, &philosopher_routine, data);
@@ -64,7 +39,6 @@ int	main(int argc, char *argv[])
 	check_args(argc, argv, &data);
 	init_data(argv, &data);
 	init_philosophers(&data);
-	// philosopher_routine(&data);
 	finalize(&data);
 }
 

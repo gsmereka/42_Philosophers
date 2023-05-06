@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 17:27:20 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/06 17:36:56 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/06 19:32:10 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct s_data
 	t_philosopher	**philosophers;
 	pthread_t		**philo_threads;
 	pthread_mutex_t	*mutex;
+	int				philo_count;
 }	t_data;
 
 #endif
