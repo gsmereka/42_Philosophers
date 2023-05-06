@@ -6,17 +6,19 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 12:41:41 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/05 15:14:33 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/05 21:31:12 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/philo.h"
 
 static void	set_config(char *argv[], t_data *data);
-
+static void	set_forks(t_data *data);
+ 
 void	init_data(char *argv[], t_data *data)
 {
 	set_config(argv, data);
+	set_forks(data);
 }
 
 static void	set_config(char *argv[], t_data *data)
@@ -36,4 +38,14 @@ static void	set_config(char *argv[], t_data *data)
 	else
 		data->config->number_of_times_each_philosopher_must_eat = -1;
 	data->config->time_to_think = 1000;
+}
+
+static void	set_forks(t_data *data)
+{
+	data->forks = ft_calloc(data->config->number_of_philosophers + 1, sizeof(t_fork));
+	if (!data->forks)
+	{
+		ft_putstr_fd("Fail to allocate fork array\n", 2);
+		exit(12);
+	}
 }

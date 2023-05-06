@@ -6,7 +6,7 @@
 #    By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/02 17:20:24 by gsmereka          #+#    #+#              #
-#    Updated: 2023/05/05 14:57:54 by gsmereka         ###   ########.fr        #
+#    Updated: 2023/05/05 21:22:07 by gsmereka         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@ NAME 		=	philo
 SRC 		=	src/main.c \
 				src/check_args.c \
 				src/init_data.c \
+				src/finalize.c	\
 				utils/ft_bzero.c \
 				utils/ft_isdigit.c \
 				utils/ft_itohex.c \

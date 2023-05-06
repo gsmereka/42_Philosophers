@@ -6,12 +6,17 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 17:27:20 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/05 12:51:36 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/05 21:15:50 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTS_H
 # define STRUCTS_H
+
+typedef struct	s_fork
+{
+	int	holder;
+}	t_fork;
 
 typedef	struct	s_config
 {
@@ -26,6 +31,7 @@ typedef	struct	s_config
 typedef struct s_data
 {
 	t_config	*config;
+	t_fork		**forks;
 }	t_data;
 
 #endif

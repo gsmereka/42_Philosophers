@@ -14,25 +14,25 @@
 
 static int	compare_absolute_values(char *nbr_copy, char *original_nbr);
 static int	is_too_big(char *original_nbr, t_data *data);
-static int	is_numeric(char *arg, t_data *data);
+static int	is_numeric_and_positive(char *arg, t_data *data);
 
 int	validate_int(char *arg, t_data *data)
 {
-	if (!is_numeric(arg, data))
+	if (!is_numeric_and_positive(arg, data))
 		return (0);
 	if (!is_too_big(arg, data))
 		return (0);
 	return (1);
 }
 
-static int	is_numeric(char *arg, t_data *data)
+static int	is_numeric_and_positive(char *arg, t_data *data)
 {
 	int	i;
 
 	i = 0;
 	while ((arg[i] >= '\t' && arg[i] <= '\r') || arg[i] == ' ')
 		i++;
-	if (arg[i] == '-' || arg[i] == '+')
+	if (arg[i] == '+')
 		i++;
 	if (!ft_isdigit(arg[i]))
 		return (0);
