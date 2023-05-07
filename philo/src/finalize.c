@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 21:22:12 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/07 14:24:20 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/07 15:15:47 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	free_array_list(void **list);
 void	finalize(t_data *data)
 {
 	// sleep(2);
-	// pthread_mutex_destroy(data->mutex);
 	free_data(data);
 	exit(0);
 }
@@ -33,14 +32,31 @@ void	exit_error(int status, char *msg, t_data *data)
 
 static void	free_data(t_data *data)
 {
+	int	i;
+
 	if (data->forks)
+	{
+		i = 0;
+		while (data->forks[i])
+		{
+			if (data->forks[i]->mutex)
+			{
+				pthread_mutex_destroy(data->forks[i]->mutex);
+				free(data->forks[i]->mutex);
+			}
+			i++;
+		}
 		free_generic_array((void **)data->forks, data->config->number_of_philosophers);
+	}
 	if (data->philosophers)
 		free_generic_array((void **)data->philosophers, data->config->number_of_philosophers);
 	if (data->philo_threads)
 		free_generic_array((void **)data->philo_threads, data->config->number_of_philosophers);
 	if (data->mutex)
+	{
+		pthread_mutex_destroy(data->mutex);
 		free(data->mutex);
+	}
 	if (data->config)
 		free(data->config);
 }

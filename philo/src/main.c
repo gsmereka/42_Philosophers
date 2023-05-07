@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 17:36:24 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/07 14:58:52 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/07 15:08:09 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,13 @@ void	prepare_threads(t_data *data)
 	pthread_mutex_init(data->mutex, NULL);
 	while ((philo < data->config->number_of_philosophers))
 	{
-		printf("debug\n");
 		pthread_mutex_init(data->forks[philo]->mutex, NULL);
-		printf("debug\n");
-		pthread_create(data->philo_threads[philo], NULL, &philosopher_routine, data);
+		philo++;
+	}
+	philo = 0;
+	while ((philo < data->config->number_of_philosophers))
+	{
+		pthread_create(data->philo_threads[philo], NULL, &philosopher_routine, data->philosophers[philo]);
 		philo++;
 	}
 	philo = 0;
