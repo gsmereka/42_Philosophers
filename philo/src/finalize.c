@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 21:22:12 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/06 18:39:00 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/06 20:41:28 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	free_array_list(void **list);
 void	finalize(t_data *data)
 {
 	// sleep(2);
+	pthread_mutex_destroy(data->mutex);
 	free_data(data);
 	exit(0);
 }

@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 17:36:24 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/06 19:48:08 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/06 19:49:44 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	init_philosophers(t_data *data)
 	int	philo;
 
 	philo = 0;
-	data->philo_count = 0;
 	pthread_mutex_init(data->mutex, NULL);
 	while ((philo < data->config->number_of_philosophers))
 	{
