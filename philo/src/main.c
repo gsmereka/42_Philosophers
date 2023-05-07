@@ -6,28 +6,43 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 17:36:24 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/06 19:49:44 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/07 14:35:26 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/philo.h"
 
+// void	init_philosophers(t_data *data)
+// {
+// 	int	philo;
+
+// 	philo = 0;
+// 	pthread_mutex_init(data->mutex, NULL);
+// 	while ((philo < data->config->number_of_philosophers))
+// 	{
+// 		pthread_create(data->philo_threads[philo], NULL, &philosopher_routine, data);
+// 		philo++;
+// 	}
+// 	philo = 0;
+// 	while ((philo < data->config->number_of_philosophers))
+// 	{
+// 		pthread_join((*data->philo_threads[philo]), NULL);
+// 		philo++;
+// 	}
+// }
+
 void	init_philosophers(t_data *data)
 {
-	int	philo;
+	int	i;
 
-	philo = 0;
-	pthread_mutex_init(data->mutex, NULL);
-	while ((philo < data->config->number_of_philosophers))
+	i = 0;
+	while (i < data->config->number_of_philosophers)
 	{
-		pthread_create(data->philo_threads[philo], NULL, &philosopher_routine, data);
-		philo++;
-	}
-	philo = 0;
-	while ((philo < data->config->number_of_philosophers))
-	{
-		pthread_join((*data->philo_threads[philo]), NULL);
-		philo++;
+		data->philosophers[i]->eat_limit = data->config->number_of_times_each_philosopher_must_eat;
+		data->philosophers[i]->left_fork = data->forks[i];
+		data->philosophers[i]->right_fork = data->forks[i];
+		data->philosophers[i]->index = i;
+		i++;
 	}
 }
 

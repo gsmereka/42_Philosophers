@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 12:41:41 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/06 19:50:29 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/07 14:33:07 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,8 @@ static void	set_philosophers(t_data *data)
 	while (i < data->config->number_of_philosophers)
 	{
 		data->philosophers[i] = ft_calloc(1, sizeof(t_philosopher));
-			if (!data->philosophers[i])
-				exit_error(12, "Fail to allocate philosopher struct\n", data);
+		if (!data->philosophers[i])
+			exit_error(12, "Fail to allocate philosopher struct\n", data);
 		i++;
 	}
 }
@@ -90,8 +90,8 @@ static void	set_threads(t_data *data)
 	while (i < data->config->number_of_philosophers)
 	{
 		data->philo_threads[i] = ft_calloc(1, sizeof(pthread_t));
-			if (!data->philo_threads[i])
-				exit_error(12, "Fail to allocate philosopher struct\n", data);
+		if (!data->philo_threads[i])
+			exit_error(12, "Fail to allocate philosopher struct\n", data);
 		i++;
 	}
 	data->mutex = ft_calloc(data->config->number_of_philosophers, sizeof(pthread_mutex_t));

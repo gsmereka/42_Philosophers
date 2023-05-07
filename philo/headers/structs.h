@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 17:27:20 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/06 21:06:53 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/07 14:42:09 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,18 @@
 
 typedef struct	s_fork
 {
-	int	holder;
-	int look;
+	int				holder;
+	int 			available;
+	pthread_mutex_t	*mutex;
 }	t_fork;
 
 typedef struct	s_philosopher
 {
-	int	index;
-	int	left_fork;
-	int	right_fork;
-	int	eat_limit;
+	int		index;
+	t_fork	*left_fork;
+	t_fork	*right_fork;
+	int		eat_limit;
+	int		time;
 }	t_philosopher;
 
 typedef	struct	s_config
