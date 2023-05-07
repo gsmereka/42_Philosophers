@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 12:41:41 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/07 14:33:07 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/07 15:01:07 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,9 @@ static void	set_forks(t_data *data)
 	{
 		data->forks[i] = ft_calloc(1, sizeof(t_fork));
 		if (!data->forks[i])
+			exit_error(12, "Fail to allocate fork struct\n", data);
+		data->forks[i]->mutex = ft_calloc(1, sizeof(pthread_mutex_t));
+		if (!data->forks[i]->mutex)
 			exit_error(12, "Fail to allocate fork struct\n", data);
 		i++;
 	}

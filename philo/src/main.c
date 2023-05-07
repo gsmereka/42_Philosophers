@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 17:36:24 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/07 14:35:26 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/07 14:58:52 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,28 @@
 // 	}
 // }
 
+void	prepare_threads(t_data *data)
+{
+	int	philo;
+
+	philo = 0;
+	pthread_mutex_init(data->mutex, NULL);
+	while ((philo < data->config->number_of_philosophers))
+	{
+		printf("debug\n");
+		pthread_mutex_init(data->forks[philo]->mutex, NULL);
+		printf("debug\n");
+		pthread_create(data->philo_threads[philo], NULL, &philosopher_routine, data);
+		philo++;
+	}
+	philo = 0;
+	while ((philo < data->config->number_of_philosophers))
+	{
+		pthread_join((*data->philo_threads[philo]), NULL);
+		philo++;
+	}
+}
+
 void	init_philosophers(t_data *data)
 {
 	int	i;
@@ -53,6 +75,7 @@ int	main(int argc, char *argv[])
 	check_args(argc, argv, &data);
 	init_data(argv, &data);
 	init_philosophers(&data);
+	prepare_threads(&data);
 	finalize(&data);
 }
 
