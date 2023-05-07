@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 18:36:04 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/07 16:41:19 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/07 16:48:24 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	philo_prepare_to_eat(t_philosopher *philo)
 		{
 			forks++;
 			pthread_mutex_lock(philo->left_fork->mutex);
-			philo->left_fork->available--;
+			philo->left_fork->available = FALSE;
 			philo->left_fork->holder = philo->id;
 			pthread_mutex_unlock(philo->left_fork->mutex);
 			printf("%d %d has taken a fork\n", philo->time, philo->id);
@@ -32,7 +32,7 @@ void	philo_prepare_to_eat(t_philosopher *philo)
 		{
 			forks++;
 			pthread_mutex_lock(philo->right_fork->mutex);
-			philo->right_fork->available--;
+			philo->right_fork->available = FALSE;
 			philo->right_fork->holder = philo->id;
 			pthread_mutex_unlock(philo->right_fork->mutex);
 			printf("%d %d has taken a fork\n", philo->time, philo->id);
@@ -45,24 +45,20 @@ void	philo_eat(t_philosopher *philo)
 	printf("%d %d is eating\n", philo->time, philo->id);
 	sleep(1);
 	pthread_mutex_lock(philo->right_fork->mutex);
-	philo->right_fork->available++;
+	philo->right_fork->available = TRUE;
 	philo->right_fork->holder = 0;
 	pthread_mutex_unlock(philo->right_fork->mutex);
 	pthread_mutex_lock(philo->left_fork->mutex);
-	philo->left_fork->available++;
+	philo->left_fork->available = TRUE;
 	philo->left_fork->holder = 0;
 	pthread_mutex_unlock(philo->left_fork->mutex);
 }
 
-void	philo_think(t_philosopher *philo)
-{
-	printf("%d %d is thinking\n", philo->time, philo->id);
-	sleep(1);
-}
-
-void	philo_sleep(t_philosopher *philo)
+void	philo_sleep_and_think(t_philosopher *philo)
 {
 	printf("%d %d is sleeping\n", philo->time, philo->id);
+	sleep(1);
+	printf("%d %d is thinking\n", philo->time, philo->id);
 	sleep(1);
 }
 
@@ -80,7 +76,6 @@ void	*philosopher_routine(void *philosopher)
 		philo_prepare_to_eat(philo);
 		philo_eat(philo);
 		philo->eat_limit--;
-		philo_sleep(philo);
-		philo_think(philo);
+		philo_sleep_and_think(philo);
 	}
 }

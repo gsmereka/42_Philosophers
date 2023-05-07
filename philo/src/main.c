@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 17:36:24 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/07 16:38:54 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/07 16:55:37 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,25 +58,30 @@ void	prepare_threads(t_data *data)
 
 void	init_philosophers(t_data *data)
 {
-	int	i;
+	int	index;
 
-	i = 0;
-	while (i < data->config->number_of_philosophers)
+	index = 0;
+	while (index < data->config->number_of_philosophers)
 	{
-		data->philosophers[i]->eat_limit = data->config->number_of_times_each_philosopher_must_eat;
-		data->philosophers[i]->left_fork = data->forks[i];
-		if (i < data->config->number_of_philosophers - 1)
-			data->philosophers[i]->right_fork = data->forks[i + 1];
+		data->philosophers[index]->eat_limit
+			= data->config->number_of_times_each_philosopher_must_eat;
+		data->philosophers[index]->left_fork = data->forks[index];
+		if (index < data->config->number_of_philosophers - 1)
+			data->philosophers[index]->right_fork = data->forks[index + 1];
 		else
-			data->philosophers[i]->right_fork = data->forks[0];
-		data->philosophers[i]->id = i + 1;
-		i++;
+			data->philosophers[index]->right_fork = data->forks[0];
+		data->philosophers[index]->id = index + 1;
+		data->philosophers[index]->time_to_die = data->config->time_to_die;
+		data->philosophers[index]->time_to_eat = data->config->time_to_eat;
+		data->philosophers[index]->time_to_sleep = data->config->time_to_sleep;
+		data->philosophers[index]->time_to_think = data->config->time_to_think;
+		index++;
 	}
 }
 
 int	main(int argc, char *argv[])
 {
-	t_data data;
+	t_data	data;
 
 	check_args(argc, argv, &data);
 	init_data(argv, &data);
