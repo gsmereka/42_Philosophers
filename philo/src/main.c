@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 17:36:24 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/07 15:08:09 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/07 15:18:44 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,10 @@ void	init_philosophers(t_data *data)
 	{
 		data->philosophers[i]->eat_limit = data->config->number_of_times_each_philosopher_must_eat;
 		data->philosophers[i]->left_fork = data->forks[i];
-		data->philosophers[i]->right_fork = data->forks[i];
+		if (i < data->config->number_of_philosophers - 1)
+			data->philosophers[i]->right_fork = data->forks[i + 1];
+		else
+			data->philosophers[i]->right_fork = data->forks[0];
 		data->philosophers[i]->index = i;
 		i++;
 	}
