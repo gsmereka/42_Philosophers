@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 17:27:20 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/07 14:42:09 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/07 16:38:59 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ typedef struct	s_fork
 
 typedef struct	s_philosopher
 {
-	int		index;
+	int		id;
 	t_fork	*left_fork;
 	t_fork	*right_fork;
 	int		eat_limit;
