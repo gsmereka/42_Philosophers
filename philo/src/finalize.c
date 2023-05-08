@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 21:22:12 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/07 17:00:08 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/08 14:16:02 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,19 @@ static void	free_data(t_data *data)
 		free_generic_array((void **)data->forks, data->config->number_of_philosophers);
 	}
 	if (data->philosophers)
+	{
+		i = 0;
+		while (data->philosophers[i])
+		{
+			free(data->philosophers[i]->shared);
+			i++;
+		}
 		free_generic_array((void **)data->philosophers, data->config->number_of_philosophers);
+	}
 	if (data->philo_threads)
 		free_generic_array((void **)data->philo_threads, data->config->number_of_philosophers);
+	if (data->observer_thread)
+		free(data->observer_thread);
 	if (data->mutex)
 	{
 		pthread_mutex_destroy(data->mutex);
