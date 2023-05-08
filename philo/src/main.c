@@ -6,30 +6,20 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 17:36:24 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/07 16:55:37 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/08 13:19:45 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/philo.h"
 
-// void	init_philosophers(t_data *data)
-// {
-// 	int	philo;
+int	get_start_time(t_data *data)
+{
+	struct timeval	time;
 
-// 	philo = 0;
-// 	pthread_mutex_init(data->mutex, NULL);
-// 	while ((philo < data->config->number_of_philosophers))
-// 	{
-// 		pthread_create(data->philo_threads[philo], NULL, &philosopher_routine, data);
-// 		philo++;
-// 	}
-// 	philo = 0;
-// 	while ((philo < data->config->number_of_philosophers))
-// 	{
-// 		pthread_join((*data->philo_threads[philo]), NULL);
-// 		philo++;
-// 	}
-// }
+	gettimeofday(&time, NULL);
+	data->start_time = (time.tv_sec * 1000) + (time.tv_usec / 1000);
+	return (0);
+}
 
 void	prepare_threads(t_data *data)
 {
@@ -37,6 +27,7 @@ void	prepare_threads(t_data *data)
 
 	philo = 0;
 	pthread_mutex_init(data->mutex, NULL);
+	get_start_time(data);
 	while ((philo < data->config->number_of_philosophers))
 	{
 		pthread_mutex_init(data->forks[philo]->mutex, NULL);
@@ -75,6 +66,7 @@ void	init_philosophers(t_data *data)
 		data->philosophers[index]->time_to_eat = data->config->time_to_eat;
 		data->philosophers[index]->time_to_sleep = data->config->time_to_sleep;
 		data->philosophers[index]->time_to_think = data->config->time_to_think;
+		data->philosophers[index]->start_time = &data->start_time;
 		index++;
 	}
 }
@@ -114,7 +106,7 @@ int	main(int argc, char *argv[])
 // 		pthread_join(threads[i], NULL);
 // 		i++;
 // 	}
-// 	sleep(3);
+// 	usleep3);
 // 	free(count);
 // 	free(threads);
 // 	(void)argv;

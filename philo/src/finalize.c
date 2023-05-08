@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 21:22:12 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/07 15:15:47 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/07 17:00:08 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	free_array_list(void **list);
 
 void	finalize(t_data *data)
 {
-	// sleep(2);
+	// usleep2);
 	free_data(data);
 	exit(0);
 }
