@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 18:36:04 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/08 14:48:37 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/08 17:54:21 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ int	philo_sleep_and_think(t_philosopher *philo)
 // preciso colocar uma forma de parar o programa quando
 // todos ja tiverem comido e quando um dos phios morrer.
 
-
 void	*philosopher_routine(void *philosopher)
 {
 	t_philosopher	*philo;
@@ -96,6 +95,7 @@ void	*philosopher_routine(void *philosopher)
 	{
 		if (!philo_prepare_to_eat(philo))
 			return (NULL);
+		philo->last_meal_time = get_time(philo);
 		if (!philo_eat(philo))
 			return (NULL);
 		philo->eat_limit--;

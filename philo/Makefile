@@ -6,7 +6,7 @@
 #    By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/02 17:20:24 by gsmereka          #+#    #+#              #
-#    Updated: 2023/05/06 18:35:48 by gsmereka         ###   ########.fr        #
+#    Updated: 2023/05/08 18:04:35 by gsmereka         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@ NAME 		=	philo
 SRC 		=	src/main.c \
 				src/check_args.c \
 				src/init_data.c \
+				src/prepare_threads.c \
 				src/finalize.c	\
 				src/philosopher_routine.c \
 				utils/ft_bzero.c \

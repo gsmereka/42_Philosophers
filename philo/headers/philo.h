@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 17:27:17 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/06 18:37:18 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/08 18:05:03 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,9 @@ void	finalize(t_data *data);
 
 // philosopher_routine
 void	*philosopher_routine(void *data);
+
+// prepare_threads
+void	prepare_threads(t_data *data);
 
 // Utils
 int		validate_int(char *arg, t_data *data);
