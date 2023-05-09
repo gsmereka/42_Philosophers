@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 21:22:12 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/09 17:14:32 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/09 20:11:39 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,6 @@ static void	free_data(t_data *data)
 			{
 				pthread_mutex_destroy(data->philosophers[i]->shared->last_meal_mutex);
 				free(data->philosophers[i]->shared->last_meal_mutex);
-				pthread_mutex_destroy(data->philosophers[i]->shared->complete_meal_mutex);
-				free(data->philosophers[i]->shared->complete_meal_mutex);
 				free(data->philosophers[i]->shared);
 			}
 			free(data->philosophers[i]);
@@ -78,6 +76,11 @@ static void	free_data(t_data *data)
 	{
 		pthread_mutex_destroy(data->need_stop_mutex);
 		free(data->need_stop_mutex);
+	}
+	if (data->philo_dones_mutex)
+	{
+		pthread_mutex_destroy(data->philo_dones_mutex);
+		free(data->philo_dones_mutex);
 	}
 	if (data->config)
 		free(data->config);
