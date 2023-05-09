@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 14:07:13 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/09 16:59:24 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/09 17:15:01 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,20 +52,22 @@ void *observer_routine(void *observer_data)
 			pthread_mutex_unlock(data->philosophers[i]->shared->last_meal_mutex);
 			current_time = get_time_data();
 			current_time -= start_time;
-			if (current_time - last_meal_time > data->config->time_to_die + 100000)
+			pthread_mutex_lock(data->philosophers[i]->shared->complete_meal_mutex);
+			if (data->philosophers[i]->shared->complete_meal == TRUE)
+			{
+				stop++;
+				break ;
+			}
+			pthread_mutex_unlock(data->philosophers[i]->shared->complete_meal_mutex);
+			if (current_time - last_meal_time > data->config->time_to_die)
 			{
 				printf("%ld %d died\n", current_time, data->philosophers[i]->id);
 				pthread_mutex_lock(data->need_stop_mutex);
 				data->need_stop = TRUE;
 				pthread_mutex_unlock(data->need_stop_mutex);
 				stop = data->config->number_of_philosophers;
+				break ;
 			}
-			pthread_mutex_lock(data->philosophers[i]->shared->complete_meal_mutex);
-			if (data->philosophers[i]->shared->complete_meal == TRUE)
-			{
-				stop++;
-			}
-			pthread_mutex_unlock(data->philosophers[i]->shared->complete_meal_mutex);
 			i++;
 		}
 	}
