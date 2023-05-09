@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 17:40:32 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/09 18:10:22 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/09 19:55:58 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,14 @@ int	all_philo_complete(t_data *data)
 	// pthread_mutex_unlock(data->philosophers[i]->shared->complete_meal_mutex);
 }
 
+void	kill_philosopher(int philo, t_observer *observer, t_data *data)
+{
+	printf("%ld %d died\n", observer->current_time, data->philosophers[philo]->id);
+	pthread_mutex_lock(data->need_stop_mutex);
+	data->need_stop = TRUE;
+	pthread_mutex_unlock(data->need_stop_mutex);
+}
+
 int	observe_philosophers(t_observer *observer, t_data *data)
 {
 	int	philo;
@@ -53,10 +61,7 @@ int	observe_philosophers(t_observer *observer, t_data *data)
 		observer->current_time = get_time_now(observer);
 		if (observer->current_time - observer->last_meal_time > data->config->time_to_die + 601)
 		{
-			printf("%ld %d died\n", observer->current_time, data->philosophers[philo]->id);
-			pthread_mutex_lock(data->need_stop_mutex);
-			data->need_stop = TRUE;
-			pthread_mutex_unlock(data->need_stop_mutex);
+			kill_philosopher(philo, observer, data);
 			return (0);
 		}
 		philo++;
@@ -64,7 +69,7 @@ int	observe_philosophers(t_observer *observer, t_data *data)
 	return (1);
 }
 
-void *observer_routine(void *observer_data)
+void	*observer_routine(void *observer_data)
 {
 	t_observer	observer;
 	t_data		*data;
