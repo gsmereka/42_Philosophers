@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 18:36:04 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/09 20:11:58 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/09 20:30:09 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ void	*philosopher_routine(void *philosopher)
 			return (NULL);
 	}
 	pthread_mutex_lock(*philo->shared->philo_dones_mutex);
-	philo->shared->philo_dones++;
+	*philo->shared->philo_dones += 1;
 	pthread_mutex_unlock(*philo->shared->philo_dones_mutex);
 	return (NULL);
 }

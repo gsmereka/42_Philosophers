@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 17:40:32 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/09 20:07:28 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/09 20:22:32 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ long int	check_philo_last_meal(int i, t_data *data)
 }
 
 int	all_philo_complete(t_data *data)
-{
+{;
 	pthread_mutex_lock(data->philo_dones_mutex);
 	if (data->philo_dones == data->config->number_of_philosophers)
 	{
@@ -55,8 +55,8 @@ int	observe_philosophers(t_observer *observer, t_data *data)
 	int	philo;
 
 	philo = 0;
-	// if (all_philo_complete(data))
-	// 	return (0);
+	if (all_philo_complete(data))
+		return (0);
 	while (philo < data->config->number_of_philosophers)
 	{
 		observer->last_meal_time = check_philo_last_meal(philo, data);
