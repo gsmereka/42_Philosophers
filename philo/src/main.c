@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 17:36:24 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/08 23:04:33 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/09 12:57:27 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ void	init_philosophers(t_data *data)
 		data->philosophers[index]->time_to_think = data->config->time_to_think * 1000;
 		data->philosophers[index]->shared->start_time = &(data->start_time);
 		data->philosophers[index]->shared->need_stop = &(data->need_stop);
-		data->philosophers[index]->last_meal_time = 0;
+		data->philosophers[index]->shared->start_time_mutex = &(data->start_time_mutex);
+		data->philosophers[index]->shared->need_stop_mutex = &(data->need_stop_mutex);
 		index++;
 	}
 }

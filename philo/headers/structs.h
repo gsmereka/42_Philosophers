@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 17:27:20 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/09 12:32:45 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/09 12:43:41 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,17 +30,17 @@ typedef struct	s_shared
 	t_fork			*right_fork;
 	long int		*start_time;
 	int				*need_stop;
-	pthread_mutex_t	*mutex;
+	pthread_mutex_t	**start_time_mutex;
+	pthread_mutex_t	**need_stop_mutex;
+	pthread_mutex_t	*last_meal_mutex;
+	long int		last_meal_time;
 }	t_shared;
 
 typedef struct	s_philosopher
 {
-	pthread_mutex_t	*mutex;
 	t_shared		*shared;
 	int				id;
 	int				eat_limit;
-	long int		time;
-	long int		last_meal_time;
 	int				time_to_die;
 	int				time_to_eat;
 	int				time_to_sleep;
@@ -65,8 +65,8 @@ typedef struct s_data
 	t_philosopher	**philosophers;
 	pthread_t		**philo_threads;
 	pthread_t		*observer_thread;
-	pthread_mutex_t	*mutex;
-	int				philo_count;
+	pthread_mutex_t	*need_stop_mutex;
+	pthread_mutex_t	*start_time_mutex;
 	long int		start_time;
 	int				need_stop;
 }	t_data;

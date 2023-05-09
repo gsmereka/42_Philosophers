@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 12:41:41 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/09 11:37:41 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/09 12:48:05 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,12 @@ void	init_data(char *argv[], t_data *data)
 	set_forks(data);
 	set_philosophers(data);
 	set_threads(data);
+	data->start_time_mutex = ft_calloc(1, sizeof(pthread_mutex_t));
+	if (!data->start_time_mutex)
+		exit_error(12, "Fail to allocate start time mutex\n", data);
+	data->need_stop_mutex = ft_calloc(1, sizeof(pthread_mutex_t));
+	if (!data->need_stop_mutex)
+		exit_error(12, "Fail to allocate need_stop_mutex\n", data);
 }
 
 static void	set_config(char *argv[], t_data *data)
@@ -61,7 +67,7 @@ static void	set_forks(t_data *data)
 		data->forks[i]->mutex = ft_calloc(1, sizeof(pthread_mutex_t));
 		if (!data->forks[i]->mutex)
 			exit_error(12, "Fail to allocate fork struct\n", data);
-		data->forks[i]->available++;
+		data->forks[i]->available = TRUE;
 		i++;
 	}
 }
@@ -82,11 +88,8 @@ static void	set_philosophers(t_data *data)
 		data->philosophers[i]->shared = ft_calloc(1, sizeof(t_shared));
 		if (!data->philosophers[i]->shared)
 			exit_error(12, "Fail to allocate philosopher shared struct\n", data);
-		data->philosophers[i]->mutex = ft_calloc(1, sizeof(pthread_mutex_t));
-		if (!data->philosophers[i]->mutex)
-			exit_error(12, "Fail to allocate philosopher mutex\n", data);
-		data->philosophers[i]->shared->mutex = ft_calloc(1, sizeof(pthread_mutex_t));
-		if (!data->philosophers[i]->shared->mutex)
+		data->philosophers[i]->shared->last_meal_mutex = ft_calloc(1, sizeof(pthread_mutex_t));
+		if (!data->philosophers[i]->shared->last_meal_mutex)
 			exit_error(12, "Fail to allocate philosopher mutex\n", data);
 		i++;
 	}
@@ -110,7 +113,4 @@ static void	set_threads(t_data *data)
 	data->observer_thread = ft_calloc(1, sizeof(pthread_t));
 	if (!data->observer_thread)
 		exit_error(12, "Fail to allocate observer threads\n", data);
-	data->mutex = ft_calloc(1, sizeof(pthread_mutex_t));
-	if (!data->mutex)
-		exit_error(12, "Fail to allocate threads array\n", data);
 }

@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 21:22:12 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/09 11:38:04 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/09 13:16:30 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	free_array_list(void **list);
 
 void	finalize(t_data *data)
 {
-	// usleep2);
 	free_data(data);
 	exit(0);
 }
@@ -53,23 +52,30 @@ static void	free_data(t_data *data)
 		i = 0;
 		while (data->philosophers[i])
 		{
-			pthread_mutex_destroy(data->philosophers[i]->mutex);
-			free(data->philosophers[i]->mutex);
-			pthread_mutex_destroy(data->philosophers[i]->shared->mutex);
-			free(data->philosophers[i]->shared->mutex);
-			free(data->philosophers[i]->shared);
+			if (data->philosophers[i]->shared)
+			{
+				pthread_mutex_destroy(data->philosophers[i]->shared->last_meal_mutex);
+				free(data->philosophers[i]->shared->last_meal_mutex);
+				free(data->philosophers[i]->shared);
+			}
+			free(data->philosophers[i]);
 			i++;
 		}
-		free_generic_array((void **)data->philosophers, data->config->number_of_philosophers);
+		free(data->philosophers);
 	}
 	if (data->philo_threads)
 		free_generic_array((void **)data->philo_threads, data->config->number_of_philosophers);
 	if (data->observer_thread)
 		free(data->observer_thread);
-	if (data->mutex)
+	if (data->start_time_mutex)
 	{
-		pthread_mutex_destroy(data->mutex);
-		free(data->mutex);
+		pthread_mutex_destroy(data->start_time_mutex);
+		free(data->start_time_mutex);
+	}
+	if (data->need_stop_mutex)
+	{
+		pthread_mutex_destroy(data->need_stop_mutex);
+		free(data->need_stop_mutex);
 	}
 	if (data->config)
 		free(data->config);
