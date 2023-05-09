@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 18:04:11 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/09 13:39:37 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/09 13:51:18 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void *observer_routine(void *observer_data)
                 printf("%ld %d died\n", current_time, data->philosophers[i]->id);
 				pthread_mutex_lock(data->need_stop_mutex);
                 data->need_stop = TRUE;
-				pthread_mutex_lock(data->need_stop_mutex);
+				pthread_mutex_unlock(data->need_stop_mutex);
                 stop = 1;
                 break;
             }
