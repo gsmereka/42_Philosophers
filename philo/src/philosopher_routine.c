@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 18:36:04 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/09 13:49:25 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/09 17:00:50 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int	philo_prepare_to_eat(t_philosopher *philo)
 	{
 		if (philo_need_stop(philo))
 			return (0);
+		usleep(2000);
 		pthread_mutex_lock(philo->shared->left_fork->mutex);
 		pthread_mutex_lock(philo->shared->right_fork->mutex);
 		if (philo->shared->left_fork->available)
@@ -110,4 +111,8 @@ void	*philosopher_routine(void *philosopher)
 		if (!philo_sleep_and_think(philo))
 			return (NULL);
 	}
+	pthread_mutex_lock(philo->shared->complete_meal_mutex);
+	philo->shared->complete_meal = TRUE;
+	pthread_mutex_unlock(philo->shared->complete_meal_mutex);
+	return (NULL);
 }

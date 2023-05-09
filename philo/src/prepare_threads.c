@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/08 18:04:11 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/09 13:51:18 by gsmereka         ###   ########.fr       */
+/*   Created: 2023/05/09 14:07:13 by gsmereka          #+#    #+#             */
+/*   Updated: 2023/05/09 16:59:24 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,40 +30,46 @@ long int get_time_data()
 
 void *observer_routine(void *observer_data)
 {
-    t_data		*data;
+	t_data		*data;
 	long int 	last_meal_time;
 	long int	current_time;
 	long int	start_time;
 	int			i;
-    int 		stop;
+	int 		stop;
 
 	data = (t_data *)observer_data;
 	stop = 0;
 	pthread_mutex_lock((data->start_time_mutex));
 	start_time = (data->start_time);
 	pthread_mutex_unlock((data->start_time_mutex));
-    while (!stop)
+	while (stop < data->config->number_of_philosophers)
 	{
 		i = 0;
 		while (i < data->config->number_of_philosophers)
 		{
-            pthread_mutex_lock(data->philosophers[i]->shared->last_meal_mutex);
-            last_meal_time = data->philosophers[i]->shared->last_meal_time;
-            pthread_mutex_unlock(data->philosophers[i]->shared->last_meal_mutex);
-            current_time = get_time_data();
+			pthread_mutex_lock(data->philosophers[i]->shared->last_meal_mutex);
+			last_meal_time = data->philosophers[i]->shared->last_meal_time;
+			pthread_mutex_unlock(data->philosophers[i]->shared->last_meal_mutex);
+			current_time = get_time_data();
 			current_time -= start_time;
-            if (current_time - last_meal_time > data->config->time_to_die)
+			if (current_time - last_meal_time > data->config->time_to_die + 100000)
 			{
-                printf("%ld %d died\n", current_time, data->philosophers[i]->id);
+				printf("%ld %d died\n", current_time, data->philosophers[i]->id);
 				pthread_mutex_lock(data->need_stop_mutex);
-                data->need_stop = TRUE;
+				data->need_stop = TRUE;
 				pthread_mutex_unlock(data->need_stop_mutex);
-                stop = 1;
-                break;
-            }
+				stop = data->config->number_of_philosophers;
+			}
+			pthread_mutex_lock(data->philosophers[i]->shared->complete_meal_mutex);
+			if (data->philosophers[i]->shared->complete_meal == TRUE)
+			{
+				stop++;
+			}
+			pthread_mutex_unlock(data->philosophers[i]->shared->complete_meal_mutex);
 			i++;
-        }
-    }
+		}
+	}
+	return (NULL);
 }
 
 void	prepare_threads(t_data *data)
@@ -84,6 +90,7 @@ void	prepare_threads(t_data *data)
 	while ((philo < data->config->number_of_philosophers))
 	{
 		pthread_mutex_init(data->philosophers[philo]->shared->last_meal_mutex, NULL);
+		pthread_mutex_init(data->philosophers[philo]->shared->complete_meal_mutex, NULL);
 		pthread_create(data->philo_threads[philo], NULL, &philosopher_routine, data->philosophers[philo]);
 		philo++;
 	}
