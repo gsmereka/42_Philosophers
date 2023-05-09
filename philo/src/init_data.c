@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 12:41:41 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/08 13:41:23 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/09 11:37:41 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,12 @@ static void	set_philosophers(t_data *data)
 		data->philosophers[i]->shared = ft_calloc(1, sizeof(t_shared));
 		if (!data->philosophers[i]->shared)
 			exit_error(12, "Fail to allocate philosopher shared struct\n", data);
+		data->philosophers[i]->mutex = ft_calloc(1, sizeof(pthread_mutex_t));
+		if (!data->philosophers[i]->mutex)
+			exit_error(12, "Fail to allocate philosopher mutex\n", data);
+		data->philosophers[i]->shared->mutex = ft_calloc(1, sizeof(pthread_mutex_t));
+		if (!data->philosophers[i]->shared->mutex)
+			exit_error(12, "Fail to allocate philosopher mutex\n", data);
 		i++;
 	}
 }

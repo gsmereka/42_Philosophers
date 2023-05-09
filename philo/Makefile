@@ -6,7 +6,7 @@
 #    By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/02 17:20:24 by gsmereka          #+#    #+#              #
-#    Updated: 2023/05/08 18:04:35 by gsmereka         ###   ########.fr        #
+#    Updated: 2023/05/09 11:38:27 by gsmereka         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,11 +52,11 @@ RM			=	rm -f
 
 # PHILO_ARGS (in Miliseconds)
 
-NUMBER_OF_PHILOSOPHERS = 3
-TIME_TO_DIE = 1000
-TIME_TO_EAT = 1000
-TIME_TO_SLEEP = 1000
-NUMBER_OF_TIMES_EACH_PHILOSOPHER_MUST_EAT = 3
+NUMBER_OF_PHILOSOPHERS = 5
+TIME_TO_DIE = 800
+TIME_TO_EAT = 200
+TIME_TO_SLEEP = 200
+NUMBER_OF_TIMES_EACH_PHILOSOPHER_MUST_EAT = 7
 
 PHILO_ARGS		 =	$(NUMBER_OF_PHILOSOPHERS) $(TIME_TO_DIE) \
 					$(TIME_TO_EAT) $(TIME_TO_SLEEP) \

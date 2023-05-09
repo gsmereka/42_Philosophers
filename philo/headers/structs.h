@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 17:27:20 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/08 14:30:11 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/09 12:32:45 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,12 @@ typedef struct	s_shared
 	t_fork			*right_fork;
 	long int		*start_time;
 	int				*need_stop;
+	pthread_mutex_t	*mutex;
 }	t_shared;
 
 typedef struct	s_philosopher
 {
+	pthread_mutex_t	*mutex;
 	t_shared		*shared;
 	int				id;
 	int				eat_limit;
@@ -43,6 +45,7 @@ typedef struct	s_philosopher
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				time_to_think;
+	int				start_time;
 }	t_philosopher;
 
 typedef	struct	s_config
