@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 17:27:20 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/09 16:39:42 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/09 17:49:44 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,13 @@ typedef struct	s_shared
 	pthread_mutex_t	*complete_meal_mutex;
 	int				complete_meal;
 }	t_shared;
+
+typedef	struct	s_observer
+{
+	long int	start_time;
+	long int	last_meal_time;
+	long int	current_time;
+} t_observer;
 
 typedef struct	s_philosopher
 {

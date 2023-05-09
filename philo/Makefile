@@ -6,7 +6,7 @@
 #    By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/02 17:20:24 by gsmereka          #+#    #+#              #
-#    Updated: 2023/05/09 11:38:27 by gsmereka         ###   ########.fr        #
+#    Updated: 2023/05/09 17:42:40 by gsmereka         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ SRC 		=	src/main.c \
 				src/prepare_threads.c \
 				src/finalize.c	\
 				src/philosopher_routine.c \
+				src/observer_routine.c \
 				utils/ft_bzero.c \
 				utils/ft_isdigit.c \
 				utils/ft_itohex.c \
