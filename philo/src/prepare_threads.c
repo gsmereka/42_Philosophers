@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 18:04:11 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/09 13:15:52 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/09 13:39:37 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,15 @@ void *observer_routine(void *observer_data)
     t_data		*data;
 	long int 	last_meal_time;
 	long int	current_time;
+	long int	start_time;
 	int			i;
     int 		stop;
 
 	data = (t_data *)observer_data;
 	stop = 0;
+	pthread_mutex_lock((data->start_time_mutex));
+	start_time = (data->start_time);
+	pthread_mutex_unlock((data->start_time_mutex));
     while (!stop)
 	{
 		i = 0;
@@ -47,7 +51,7 @@ void *observer_routine(void *observer_data)
             last_meal_time = data->philosophers[i]->shared->last_meal_time;
             pthread_mutex_unlock(data->philosophers[i]->shared->last_meal_mutex);
             current_time = get_time_data();
-			current_time -= data->start_time;
+			current_time -= start_time;
             if (current_time - last_meal_time > data->config->time_to_die)
 			{
                 printf("%ld %d died\n", current_time, data->philosophers[i]->id);
