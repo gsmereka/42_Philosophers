@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 17:27:17 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/10 16:59:27 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/10 17:39:18 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void		check_args(int argc, char *argv[]);
 long int	get_time_now(void);
 void		exit_error(int status, char *msg, t_data *data);
 void		finalize(t_data *data);
+void		free_data(t_data *data);
 
 // philosopher_routine
 void		*philosopher_routine(void *data);

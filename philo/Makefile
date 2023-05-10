@@ -6,7 +6,7 @@
 #    By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/02 17:20:24 by gsmereka          #+#    #+#              #
-#    Updated: 2023/05/10 16:59:59 by gsmereka         ###   ########.fr        #
+#    Updated: 2023/05/10 17:40:21 by gsmereka         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,7 @@ NAME 		=	philo
 
 SRC 		=	src/main.c \
 				src/check_args.c \
+				src/validate_int.c \
 				src/init_data.c \
 				src/prepare_threads.c \
 				src/finalize.c	\
@@ -21,6 +22,7 @@ SRC 		=	src/main.c \
 				src/get_time_now.c \
 				src/init_philosophers.c \
 				src/observer_routine.c \
+				src/free_data.c \
 				utils/ft_bzero.c \
 				utils/ft_isdigit.c \
 				utils/ft_itohex.c \
@@ -30,7 +32,6 @@ SRC 		=	src/main.c \
 				utils/ft_strlcpy.c \
 				utils/ft_strncmp.c \
 				utils/ft_toupper.c \
-				utils/validate_int.c \
 				utils/ft_calloc.c \
 				utils/ft_itoa.c \
 				utils/ft_putstr_fd.c \
