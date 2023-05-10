@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 17:38:31 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/10 17:40:47 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/10 17:49:45 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ static void	destroy_forks(t_data *data)
 				pthread_mutex_destroy(data->forks[i]->mutex);
 				free(data->forks[i]->mutex);
 			}
+			free(data->forks[i]);
 			i++;
 		}
 		free(data->forks);
