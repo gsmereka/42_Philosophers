@@ -1,24 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   get_time_now.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/02 17:36:24 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/10 17:02:53 by gsmereka         ###   ########.fr       */
+/*   Created: 2023/05/10 16:53:18 by gsmereka          #+#    #+#             */
+/*   Updated: 2023/05/10 16:53:35 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/philo.h"
 
-int	main(int argc, char *argv[])
+long int	get_time_now(void)
 {
-	t_data	data;
+	struct timeval	time;
 
-	check_args(argc, argv);
-	init_data(argv, &data);
-	init_philosophers(&data);
-	prepare_threads(&data);
-	finalize(&data);
+	gettimeofday(&time, NULL);
+	return ((time.tv_sec * 1000) + (time.tv_usec / 1000));
 }

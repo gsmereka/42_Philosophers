@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 17:27:17 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/10 11:37:06 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/10 16:59:27 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,40 +35,42 @@
 # include <stdio.h>
 
 // Init Data
-void	init_data(char *argv[], t_data *data);
-void	check_args(int argc, char *argv[]);
-void	exit_error(int status, char *msg, t_data *data);
-void	finalize(t_data *data);
+void		init_data(char *argv[], t_data *data);
+void		init_philosophers(t_data *data);
+void		check_args(int argc, char *argv[]);
+long int	get_time_now(void);
+void		exit_error(int status, char *msg, t_data *data);
+void		finalize(t_data *data);
 
 // philosopher_routine
-void	*philosopher_routine(void *data);
+void		*philosopher_routine(void *data);
 
 // prepare_threads
-void	prepare_threads(t_data *data);
+void		prepare_threads(t_data *data);
 
 // observer thread
-void	*observer_routine(void *observer_data);
+void		*observer_routine(void *observer_data);
 
 // Utils
-int		validate_int(char *arg);
-char	*ft_strchr(const char *s, int c);
-char	*ft_strdup(char *s);
-char	*ft_strjoin(char *s1, char *s2);
-size_t	ft_strlen(const char *s);
-char	*ft_substr(char const *s, unsigned int start, size_t len);
-char	**ft_split(char const *s, char c);
-size_t	ft_strlcpy(char *dst, const char *src, size_t size);
-void	*ft_calloc(size_t nmemb, size_t size);
-void	ft_bzero(void *s, size_t n);
-int		ft_strncmp(const char *s1, const char *s2, size_t n);
-int		ft_printf(const char *s, ...);
-int		ft_toupper(int c);
-int		ft_isdigit(int c);
-int		ft_atoi(const char *str);
-char	*ft_itoa(int n);
-char	*ft_utoa(unsigned int n);
-char	*ft_itohex(unsigned long long n);
-void	ft_putchar_fd(char c, int fd);
-void	ft_putstr_fd(char *s, int fd);
+int			validate_int(char *arg);
+char		*ft_strchr(const char *s, int c);
+char		*ft_strdup(char *s);
+char		*ft_strjoin(char *s1, char *s2);
+size_t		ft_strlen(const char *s);
+char		*ft_substr(char const *s, unsigned int start, size_t len);
+char		**ft_split(char const *s, char c);
+size_t		ft_strlcpy(char *dst, const char *src, size_t size);
+void		*ft_calloc(size_t nmemb, size_t size);
+void		ft_bzero(void *s, size_t n);
+int			ft_strncmp(const char *s1, const char *s2, size_t n);
+int			ft_printf(const char *s, ...);
+int			ft_toupper(int c);
+int			ft_isdigit(int c);
+int			ft_atoi(const char *str);
+char		*ft_itoa(int n);
+char		*ft_utoa(unsigned int n);
+char		*ft_itohex(unsigned long long n);
+void		ft_putchar_fd(char c, int fd);
+void		ft_putstr_fd(char *s, int fd);
 
 #endif

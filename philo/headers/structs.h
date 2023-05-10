@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 17:27:20 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/09 20:07:53 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/10 16:51:14 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,14 @@
 # define TRUE 1
 # define FALSE 0
 
-typedef struct	s_fork
+typedef struct s_fork
 {
 	int				holder;
-	int 			available;
+	int				available;
 	pthread_mutex_t	*mutex;
 }	t_fork;
 
-typedef struct	s_shared
+typedef struct s_shared
 {
 	t_fork			*left_fork;
 	t_fork			*right_fork;
@@ -38,14 +38,14 @@ typedef struct	s_shared
 	int				*philo_dones;
 }	t_shared;
 
-typedef	struct	s_observer
+typedef struct s_observer
 {
 	long int	start_time;
 	long int	last_meal_time;
 	long int	current_time;
-} t_observer;
+}	t_observer;
 
-typedef struct	s_philosopher
+typedef struct s_philosopher
 {
 	t_shared		*shared;
 	int				id;
@@ -53,18 +53,16 @@ typedef struct	s_philosopher
 	int				time_to_die;
 	int				time_to_eat;
 	int				time_to_sleep;
-	int				time_to_think;
 	long int		start_time;
 }	t_philosopher;
 
-typedef	struct	s_config
+typedef struct s_config
 {
 	int			number_of_philosophers;
 	int			time_to_die;
 	int			time_to_eat;
 	int			time_to_sleep;
 	int			number_of_times_each_philosopher_must_eat;
-	int			time_to_think;
 }	t_config;
 
 typedef struct s_data
