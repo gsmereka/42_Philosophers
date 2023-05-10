@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 17:40:32 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/09 21:55:17 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/09 22:24:39 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ long int	check_philo_last_meal(int i, t_data *data)
 }
 
 int	all_philo_complete(t_data *data)
-{;
+{
 	pthread_mutex_lock(data->philo_dones_mutex);
 	if (data->philo_dones == data->config->number_of_philosophers)
 	{
@@ -44,10 +44,10 @@ int	all_philo_complete(t_data *data)
 
 void	kill_philosopher(int philo, t_observer *observer, t_data *data)
 {
-	printf("%ld %d died\n", observer->current_time, data->philosophers[philo]->id);
 	pthread_mutex_lock(data->need_stop_mutex);
 	data->need_stop = TRUE;
 	pthread_mutex_unlock(data->need_stop_mutex);
+	printf("%ld %d died ----------------- DEAD\n", observer->current_time, data->philosophers[philo]->id);
 }
 
 int	observe_philosophers(t_observer *observer, t_data *data)
@@ -83,7 +83,6 @@ void	*observer_routine(void *observer_data)
 	pthread_mutex_unlock((data->start_time_mutex));
 	while (TRUE)
 	{
-		// usleep(200);
 		if (!observe_philosophers(&observer, data))
 			break ;
 	}
