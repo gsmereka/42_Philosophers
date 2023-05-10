@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 17:40:32 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/09 20:22:32 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/09 21:55:17 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	observe_philosophers(t_observer *observer, t_data *data)
 	{
 		observer->last_meal_time = check_philo_last_meal(philo, data);
 		observer->current_time = get_time_now(observer);
-		if (observer->current_time - observer->last_meal_time > data->config->time_to_die + 601)
+		if (observer->current_time - observer->last_meal_time > data->config->time_to_die)
 		{
 			kill_philosopher(philo, observer, data);
 			return (0);
@@ -83,6 +83,7 @@ void	*observer_routine(void *observer_data)
 	pthread_mutex_unlock((data->start_time_mutex));
 	while (TRUE)
 	{
+		// usleep(200);
 		if (!observe_philosophers(&observer, data))
 			break ;
 	}

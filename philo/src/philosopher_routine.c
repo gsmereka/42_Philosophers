@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 18:36:04 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/09 20:30:09 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/09 22:05:39 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,6 @@ int	philo_prepare_to_eat(t_philosopher *philo)
 	{
 		if (philo_need_stop(philo))
 			return (0);
-		// if (philo->id % 2 == 0)
-		// 	usleep(2000);
 		pthread_mutex_lock(philo->shared->left_fork->mutex);
 		pthread_mutex_lock(philo->shared->right_fork->mutex);
 		if (philo->shared->left_fork->available)
@@ -60,19 +58,30 @@ int	philo_prepare_to_eat(t_philosopher *philo)
 		}
 		pthread_mutex_unlock(philo->shared->right_fork->mutex);
 	}
-	return (1);
+	return (1);	
 }
 
 int	philo_eat(t_philosopher *philo)
 {
-	printf("%ld %d is eating\n", get_time(philo->start_time), philo->id);
+	long int	meal_time;
+
+	meal_time = get_time(philo->start_time);
+	pthread_mutex_lock(philo->shared->last_meal_mutex);
+	philo->shared->last_meal_time = meal_time;
+	pthread_mutex_unlock(philo->shared->last_meal_mutex);
+	printf("%ld %d is eating\n", meal_time, philo->id);
+	philo->eat_limit--;
+	if (!philo->eat_limit)
+	{
+		pthread_mutex_lock(*philo->shared->philo_dones_mutex);
+		*philo->shared->philo_dones += 1;
+		pthread_mutex_unlock(*philo->shared->philo_dones_mutex);
+	}
 	usleep(philo->time_to_eat);
-	if (philo_need_stop(philo))
-		return (0);
 	pthread_mutex_lock(philo->shared->right_fork->mutex);
-	pthread_mutex_lock(philo->shared->left_fork->mutex);
 	philo->shared->right_fork->available = TRUE;
 	pthread_mutex_unlock(philo->shared->right_fork->mutex);
+	pthread_mutex_lock(philo->shared->left_fork->mutex);
 	philo->shared->left_fork->available = TRUE;
 	pthread_mutex_unlock(philo->shared->left_fork->mutex);
 	return (1);
@@ -82,12 +91,7 @@ int	philo_sleep_and_think(t_philosopher *philo)
 {
 	printf("%ld %d is sleeping\n", get_time(philo->start_time), philo->id);
 	usleep(philo->time_to_sleep);
-	if (philo_need_stop(philo))
-		return (0);
 	printf("%ld %d is thinking\n", get_time(philo->start_time), philo->id);
-	usleep(philo->time_to_think);
-	if (philo_need_stop(philo))
-		return (0);
 	return (1);
 }
 
@@ -101,19 +105,15 @@ void	*philosopher_routine(void *philosopher)
 	pthread_mutex_unlock((*philo->shared->start_time_mutex));
 	while (philo->eat_limit)
 	{
-		if (!philo_prepare_to_eat(philo))
-			return (NULL);
-		pthread_mutex_lock(philo->shared->last_meal_mutex);
-		philo->shared->last_meal_time = get_time(philo->start_time);
-		pthread_mutex_unlock(philo->shared->last_meal_mutex);
-		if (!philo_eat(philo))
-			return (NULL);
-		philo->eat_limit--;
-		if (!philo_sleep_and_think(philo))
-			return (NULL);
+		philo_prepare_to_eat(philo);
+		if (philo_need_stop(philo))
+			return (0);
+		philo_eat(philo);
+		if (philo_need_stop(philo))
+			return (0);
+		philo_sleep_and_think(philo);
+		if (philo_need_stop(philo))
+			return (0);
 	}
-	pthread_mutex_lock(*philo->shared->philo_dones_mutex);
-	*philo->shared->philo_dones += 1;
-	pthread_mutex_unlock(*philo->shared->philo_dones_mutex);
 	return (NULL);
 }
