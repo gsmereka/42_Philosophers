@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 18:36:04 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/10 20:09:07 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/10 20:44:58 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,19 +74,22 @@ static int	philo_eat(t_philosopher *philo)
 	long int	meal_time;
 
 	meal_time = get_time_now() - philo->start_time;
-	pthread_mutex_lock(philo->shared->last_meal_mutex);
-	philo->shared->last_meal_time = meal_time;
-	pthread_mutex_unlock(philo->shared->last_meal_mutex);
-	if (philo_need_stop(philo))
-		return (0);
-	printf("%ld %d is eating\n", meal_time, philo->id);
 	philo->eat_limit--;
 	if (!philo->eat_limit)
 	{
-		pthread_mutex_lock(*philo->shared->philo_dones_mutex);
-		*philo->shared->philo_dones += 1;
-		pthread_mutex_unlock(*philo->shared->philo_dones_mutex);
+		pthread_mutex_lock(philo->shared->last_meal_mutex);
+		philo->shared->done = TRUE;
+		pthread_mutex_unlock(philo->shared->last_meal_mutex);
 	}
+	else
+	{
+		pthread_mutex_lock(philo->shared->last_meal_mutex);
+		philo->shared->last_meal_time = meal_time;
+		pthread_mutex_unlock(philo->shared->last_meal_mutex);
+	}
+	if (philo_need_stop(philo))
+		return (0);
+	printf("%ld %d is eating\n", meal_time, philo->id);
 	usleep(philo->time_to_eat);
 	return (1);
 }
@@ -103,9 +106,9 @@ static int	philo_sleep_and_think(t_philosopher *philo)
 	pthread_mutex_lock(philo->shared->left_fork->mutex);
 	philo->shared->left_fork->available = TRUE;
 	pthread_mutex_unlock(philo->shared->left_fork->mutex);
+	usleep(philo->time_to_sleep);
 	if (philo_need_stop(philo))
 		return (0);
-	usleep(philo->time_to_sleep);
 	printf("%ld %d is thinking\n",
 		get_time_now() - philo->start_time, philo->id);
 	return (1);

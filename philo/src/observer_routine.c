@@ -6,15 +6,15 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 17:40:32 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/10 18:38:43 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/10 20:57:34 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/philo.h"
 
 static int		observe_philosophers(t_observer *observer, t_data *data);
-static long int	check_philo_last_meal(int i, t_data *data);
-static int		all_philo_complete(t_data *data);
+static void	check_philo_status(int i, t_observer *observer, t_data *data);
+// static int		philo_eat_all(int philo, t_data *data);
 static void		kill_philosopher(int philo, t_observer *observer, t_data *data);
 
 void	*observer_routine(void *observer_data)
@@ -40,13 +40,15 @@ static int	observe_philosophers(t_observer *observer, t_data *data)
 	int	philo;
 
 	philo = 0;
+	if (observer->philo_dones == data->config->number_of_philosophers)
+		return (0);
 	while (philo < data->config->number_of_philosophers)
 	{
-		observer->last_meal_time = check_philo_last_meal(philo, data);
+		check_philo_status(philo, observer, data);
 		observer->current_time = get_time_now() - observer->start_time;
-		if (all_philo_complete(data))
-			return (0);
-		if (observer->current_time - observer->last_meal_time
+		if (observer->philo_done == TRUE)
+			observer->philo_dones++;
+		else if (observer->current_time - observer->last_meal_time
 			> data->config->time_to_die)
 		{
 			kill_philosopher(philo, observer, data);
@@ -57,26 +59,12 @@ static int	observe_philosophers(t_observer *observer, t_data *data)
 	return (1);
 }
 
-static long int	check_philo_last_meal(int i, t_data *data)
+static void	check_philo_status(int i, t_observer *observer, t_data *data)
 {
-	long int	last_meal_time;
-
 	pthread_mutex_lock(data->philosophers[i]->shared->last_meal_mutex);
-	last_meal_time = data->philosophers[i]->shared->last_meal_time;
+	observer->last_meal_time = data->philosophers[i]->shared->last_meal_time;
+	observer->philo_done = data->philosophers[i]->shared->done;
 	pthread_mutex_unlock(data->philosophers[i]->shared->last_meal_mutex);
-	return (last_meal_time);
-}
-
-static int	all_philo_complete(t_data *data)
-{
-	pthread_mutex_lock(data->philo_dones_mutex);
-	if (data->philo_dones == data->config->number_of_philosophers)
-	{
-		pthread_mutex_unlock(data->philo_dones_mutex);
-		return (1);
-	}
-	pthread_mutex_unlock(data->philo_dones_mutex);
-	return (0);
 }
 
 static void	kill_philosopher(int philo, t_observer *observer, t_data *data)
