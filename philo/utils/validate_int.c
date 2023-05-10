@@ -13,19 +13,19 @@
 #include "../headers/philo.h"
 
 static int	compare_absolute_values(char *nbr_copy, char *original_nbr);
-static int	is_too_big(char *original_nbr, t_data *data);
-static int	is_numeric_and_positive(char *arg, t_data *data);
+static int	is_too_big(char *original_nbr);
+static int	is_numeric_and_positive(char *arg);
 
-int	validate_int(char *arg, t_data *data)
+int	validate_int(char *arg)
 {
-	if (!is_numeric_and_positive(arg, data))
+	if (!is_numeric_and_positive(arg))
 		return (0);
-	if (!is_too_big(arg, data))
+	if (!is_too_big(arg))
 		return (0);
 	return (1);
 }
 
-static int	is_numeric_and_positive(char *arg, t_data *data)
+static int	is_numeric_and_positive(char *arg)
 {
 	int	i;
 
@@ -43,7 +43,7 @@ static int	is_numeric_and_positive(char *arg, t_data *data)
 	return (1);
 }
 
-static int	is_too_big(char *original_nbr, t_data *data)
+static int	is_too_big(char *original_nbr)
 {
 	char	*nbr_copy;
 	int		diff;

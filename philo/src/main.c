@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 17:36:24 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/09 20:28:22 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/10 11:37:40 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	main(int argc, char *argv[])
 {
 	t_data	data;
 
-	check_args(argc, argv, &data);
+	check_args(argc, argv);
 	init_data(argv, &data);
 	init_philosophers(&data);
 	prepare_threads(&data);

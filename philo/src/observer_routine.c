@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 17:40:32 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/09 22:24:39 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/10 11:35:02 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	*observer_routine(void *observer_data)
 	t_observer	observer;
 	t_data		*data;
 
-	data = data = (t_data *)observer_data;
+	data = (t_data *)observer_data;
 	observer = (t_observer){0};
 	pthread_mutex_lock((data->start_time_mutex));
 	observer.start_time = (data->start_time);

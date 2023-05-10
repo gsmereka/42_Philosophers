@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 17:27:17 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/09 17:41:37 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/10 11:37:06 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
 
 // Init Data
 void	init_data(char *argv[], t_data *data);
-void	check_args(int argc, char *argv[], t_data *data);
+void	check_args(int argc, char *argv[]);
 void	exit_error(int status, char *msg, t_data *data);
 void	finalize(t_data *data);
 
@@ -50,7 +50,7 @@ void	prepare_threads(t_data *data);
 void	*observer_routine(void *observer_data);
 
 // Utils
-int		validate_int(char *arg, t_data *data);
+int		validate_int(char *arg);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strdup(char *s);
 char	*ft_strjoin(char *s1, char *s2);

@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 18:36:04 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/09 22:45:57 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/10 11:33:10 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,17 +73,9 @@ int	philo_eat(t_philosopher *philo)
 	philo->eat_limit--;
 	if (!philo->eat_limit)
 	{
-		pthread_mutex_lock(philo->shared->right_fork->mutex);
-		philo->shared->right_fork->available = TRUE;
-		pthread_mutex_unlock(philo->shared->right_fork->mutex);
-		pthread_mutex_lock(philo->shared->left_fork->mutex);
-		philo->shared->left_fork->available = TRUE;
-		pthread_mutex_unlock(philo->shared->left_fork->mutex);
 		pthread_mutex_lock(*philo->shared->philo_dones_mutex);
 		*philo->shared->philo_dones += 1;
 		pthread_mutex_unlock(*philo->shared->philo_dones_mutex);
-		usleep(philo->time_to_eat);
-		return (1);
 	}
 	usleep(philo->time_to_eat);
 	pthread_mutex_lock(philo->shared->right_fork->mutex);
