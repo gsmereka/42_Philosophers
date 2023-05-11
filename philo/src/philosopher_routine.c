@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 18:36:04 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/11 17:11:03 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/11 17:35:55 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,6 @@ void	*philosopher_routine(void *philosopher)
 	t_philosopher	*philo;
 
 	philo = (t_philosopher *)philosopher;
-	pthread_mutex_lock((*philo->shared->start_time_mutex));
-	philo->start_time = (*philo->shared->start_time);
-	pthread_mutex_unlock((*philo->shared->start_time_mutex));
 	while (philo->eat_limit)
 	{
 		if (!philo_prepare_to_eat(philo))

@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 17:27:20 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/11 17:30:24 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/11 18:04:01 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ typedef struct s_philosopher
 
 typedef struct s_observer
 {
-	t_philosopher	**philosophers;
+	t_philosopher	***philosophers;
 	pthread_mutex_t	**start_time_mutex;
 	pthread_mutex_t	**need_stop_mutex;
 	long int		start_time;
@@ -57,6 +57,8 @@ typedef struct s_observer
 	long int		current_time;
 	int				*need_stop;
 	int				*philo_done;
+	int				number_of_philosophers;
+	int				time_to_die;
 }	t_observer;
 
 typedef struct s_config

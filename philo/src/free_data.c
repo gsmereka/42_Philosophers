@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 17:38:31 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/11 17:22:07 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/11 18:01:40 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,13 +68,8 @@ static void	destroy_observer(t_data *data)
 {
 	if (data->observer)
 	{
-		// if (data->observer[i]->shared)
-		// {
-		// 	pthread_mutex_destroy(data->observer[i]
-		// 		->shared->philo_status_mutex);
-		// 	free(data->observer[i]->shared->philo_status_mutex);
-		// 	free(data->observer[i]->shared);
-		// }
+		if (data->observer->philo_done)
+			free(data->observer->philo_done);
 		free(data->observer);
 	}
 }

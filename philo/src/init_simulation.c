@@ -6,11 +6,13 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 14:07:13 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/11 17:31:54 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/11 17:35:14 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/philo.h"
+
+static void	define_start_time(t_data *data);
 
 void	init_simulation(t_data *data)
 {
@@ -19,7 +21,7 @@ void	init_simulation(t_data *data)
 
 	index = 0;
 	thread_join_index = 0;
-	data->start_time = get_time_now();
+	define_start_time(data);
 	pthread_create(data->observer_thread, NULL, &observer_routine, data);
 	while ((index < data->config->number_of_philosophers))
 	{
@@ -32,5 +34,19 @@ void	init_simulation(t_data *data)
 	{
 		pthread_join((*data->philo_threads[thread_join_index]), NULL);
 		thread_join_index++;
+	}
+}
+
+static void	define_start_time(t_data *data)
+{
+	int	philo;
+
+	philo = 0;
+	data->start_time = get_time_now();
+	data->observer->start_time = data->start_time;
+	while (philo < data->config->number_of_philosophers)
+	{
+		data->philosophers[philo]->start_time = data->start_time;
+		philo++;
 	}
 }

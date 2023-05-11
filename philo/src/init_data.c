@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 12:41:41 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/11 17:15:33 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/11 18:08:24 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,10 @@ void	init_data(char *argv[], t_data *data)
 	set_threads(data);
 	data->observer = ft_calloc(1, sizeof(t_observer));
 	if (!data->observer)
+		exit_error(12, "Fail to allocate observer memory\n", data);
+	data->observer->philo_done
+		= ft_calloc(data->config->number_of_philosophers, sizeof(int));
+	if (!data->observer->philo_done)
 		exit_error(12, "Fail to allocate observer memory\n", data);
 	data->start_time_mutex = ft_calloc(1, sizeof(pthread_mutex_t));
 	if (!data->start_time_mutex)

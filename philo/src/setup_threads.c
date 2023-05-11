@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 16:47:48 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/11 17:31:58 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/11 18:03:53 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,11 @@ static void	init_philosophers(t_data *data)
 
 static void	init_observer(t_data *data)
 {
+	data->observer->philosophers = &data->philosophers;
 	data->observer->need_stop = &(data->need_stop);
 	data->observer->need_stop_mutex = &(data->need_stop_mutex);
+	data->observer->number_of_philosophers = data->config->number_of_philosophers;
+	data->observer->time_to_die = data->config->time_to_die;
 }
 
 static void	init_philosophers_shared_vars(t_philosopher *philo, t_data *data)
