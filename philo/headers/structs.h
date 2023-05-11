@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 17:27:20 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/11 17:18:27 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/11 17:30:24 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ typedef struct s_observer
 	long int		start_time;
 	long int		last_meal_time;
 	long int		current_time;
+	int				*need_stop;
 	int				*philo_done;
 }	t_observer;
 
