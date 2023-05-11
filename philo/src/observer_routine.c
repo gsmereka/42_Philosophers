@@ -6,14 +6,14 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 17:40:32 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/11 12:49:52 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/11 17:24:54 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/philo.h"
 
 static int		observe_philosophers(t_observer *observer, t_data *data);
-static void	check_philo_status(int i, t_observer *observer, t_data *data);
+static void		check_philo_status(int i, t_observer *observer, t_data *data);
 // static int		philo_eat_all(int philo, t_data *data);
 static void		kill_philosopher(int philo, t_observer *observer, t_data *data);
 

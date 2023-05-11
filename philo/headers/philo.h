@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 17:27:17 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/10 17:39:18 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/11 17:17:19 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
 
 // Init Data
 void		init_data(char *argv[], t_data *data);
-void		init_philosophers(t_data *data);
+void		setup_threads(t_data *data);
 void		check_args(int argc, char *argv[]);
 long int	get_time_now(void);
 void		exit_error(int status, char *msg, t_data *data);
@@ -47,7 +47,7 @@ void		free_data(t_data *data);
 void		*philosopher_routine(void *data);
 
 // prepare_threads
-void		prepare_threads(t_data *data);
+void		init_simulation(t_data *data);
 
 // observer thread
 void		*observer_routine(void *observer_data);

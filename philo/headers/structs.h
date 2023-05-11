@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 17:27:20 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/11 12:50:08 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/11 17:18:27 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,6 @@ typedef struct s_shared
 	int				done;
 }	t_shared;
 
-typedef struct s_observer
-{
-	long int	start_time;
-	long int	last_meal_time;
-	long int	current_time;
-	int			*philo_done;
-}	t_observer;
-
 typedef struct s_philosopher
 {
 	t_shared		*shared;
@@ -54,6 +46,17 @@ typedef struct s_philosopher
 	int				time_to_sleep;
 	long int		start_time;
 }	t_philosopher;
+
+typedef struct s_observer
+{
+	t_philosopher	**philosophers;
+	pthread_mutex_t	**start_time_mutex;
+	pthread_mutex_t	**need_stop_mutex;
+	long int		start_time;
+	long int		last_meal_time;
+	long int		current_time;
+	int				*philo_done;
+}	t_observer;
 
 typedef struct s_config
 {
@@ -68,6 +71,7 @@ typedef struct s_data
 {
 	t_config		*config;
 	t_fork			**forks;
+	t_observer		*observer;
 	t_philosopher	**philosophers;
 	pthread_t		**philo_threads;
 	pthread_t		*observer_thread;

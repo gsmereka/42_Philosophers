@@ -6,7 +6,7 @@
 #    By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/02 17:20:24 by gsmereka          #+#    #+#              #
-#    Updated: 2023/05/10 17:40:21 by gsmereka         ###   ########.fr        #
+#    Updated: 2023/05/11 17:17:50 by gsmereka         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,11 +16,11 @@ SRC 		=	src/main.c \
 				src/check_args.c \
 				src/validate_int.c \
 				src/init_data.c \
-				src/prepare_threads.c \
+				src/setup_threads.c \
 				src/finalize.c	\
 				src/philosopher_routine.c \
 				src/get_time_now.c \
-				src/init_philosophers.c \
+				src/init_simulation.c \
 				src/observer_routine.c \
 				src/free_data.c \
 				utils/ft_bzero.c \

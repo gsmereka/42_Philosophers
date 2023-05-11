@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prepare_threads.c                                  :+:      :+:    :+:   */
+/*   init_simulation.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 14:07:13 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/10 21:05:31 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/11 17:24:22 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	prepare_mutexes(t_data *data);
 
-void	prepare_threads(t_data *data)
+void	init_simulation(t_data *data)
 {
 	int	index;
 	int	thread_join_index;

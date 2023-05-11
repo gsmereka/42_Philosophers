@@ -1,20 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_philosophers.c                                :+:      :+:    :+:   */
+/*   setup_threads.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 16:47:48 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/10 21:05:57 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/11 17:23:16 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/philo.h"
 
 static void	init_philosophers_shared_vars(t_philosopher *philo, t_data *data);
+static void	init_philosophers(t_data *data);
 
-void	init_philosophers(t_data *data)
+void	setup_threads(t_data *data)
+{
+	init_philosophers(data);
+}
+
+static void	init_philosophers(t_data *data)
 {
 	int				index;
 	t_philosopher	*philo;
