@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 12:41:41 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/10 17:02:32 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/10 21:03:17 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,6 @@ void	init_data(char *argv[], t_data *data)
 	data->need_stop_mutex = ft_calloc(1, sizeof(pthread_mutex_t));
 	if (!data->need_stop_mutex)
 		exit_error(12, "Fail to allocate need_stop_mutex\n", data);
-	data->philo_dones_mutex = ft_calloc(1, sizeof(pthread_mutex_t));
-	if (!data->philo_dones_mutex)
-		exit_error(12, "Fail to allocate philosopher mutex\n", data);
 }
 
 static void	set_config(char *argv[], t_data *data)
@@ -93,9 +90,9 @@ static void	set_philosophers(t_data *data)
 		data->philosophers[i]->shared = ft_calloc(1, sizeof(t_shared));
 		if (!data->philosophers[i]->shared)
 			exit_error(12, "Fail to allocate philosopher shared struct\n", data);
-		data->philosophers[i]->shared->last_meal_mutex
+		data->philosophers[i]->shared->philo_status_mutex
 			= ft_calloc(1, sizeof(pthread_mutex_t));
-		if (!data->philosophers[i]->shared->last_meal_mutex)
+		if (!data->philosophers[i]->shared->philo_status_mutex)
 			exit_error(12, "Fail to allocate philosopher mutex\n", data);
 		i++;
 	}

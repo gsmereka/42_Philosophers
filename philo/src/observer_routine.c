@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 17:40:32 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/10 20:57:34 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/10 21:02:04 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,10 @@ static int	observe_philosophers(t_observer *observer, t_data *data)
 
 static void	check_philo_status(int i, t_observer *observer, t_data *data)
 {
-	pthread_mutex_lock(data->philosophers[i]->shared->last_meal_mutex);
+	pthread_mutex_lock(data->philosophers[i]->shared->philo_status_mutex);
 	observer->last_meal_time = data->philosophers[i]->shared->last_meal_time;
 	observer->philo_done = data->philosophers[i]->shared->done;
-	pthread_mutex_unlock(data->philosophers[i]->shared->last_meal_mutex);
+	pthread_mutex_unlock(data->philosophers[i]->shared->philo_status_mutex);
 }
 
 static void	kill_philosopher(int philo, t_observer *observer, t_data *data)

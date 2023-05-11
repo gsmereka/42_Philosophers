@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 17:27:20 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/10 20:57:03 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/10 21:02:50 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,8 @@ typedef struct s_shared
 	int				*need_stop;
 	pthread_mutex_t	**start_time_mutex;
 	pthread_mutex_t	**need_stop_mutex;
-	pthread_mutex_t	*last_meal_mutex;
+	pthread_mutex_t	*philo_status_mutex;
 	long int		last_meal_time;
-	pthread_mutex_t	**philo_dones_mutex;
-	int				*philo_dones;
 	int				done;
 }	t_shared;
 
@@ -77,10 +75,8 @@ typedef struct s_data
 	pthread_t		*observer_thread;
 	pthread_mutex_t	*need_stop_mutex;
 	pthread_mutex_t	*start_time_mutex;
-	pthread_mutex_t	*philo_dones_mutex;
 	long int		start_time;
 	int				need_stop;
-	int				philo_dones;
 }	t_data;
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 16:47:48 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/10 17:03:13 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/10 21:05:57 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,6 @@ static void	init_philosophers_shared_vars(t_philosopher *philo, t_data *data)
 {
 	philo->shared->start_time = &(data->start_time);
 	philo->shared->need_stop = &(data->need_stop);
-	philo->shared->philo_dones = &(data->philo_dones);
-	philo->shared->philo_dones_mutex = &(data->philo_dones_mutex);
 	philo->shared->start_time_mutex = &(data->start_time_mutex);
 	philo->shared->need_stop_mutex = &(data->need_stop_mutex);
 }
