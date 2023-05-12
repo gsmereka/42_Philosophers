@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 17:27:20 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/11 20:01:20 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/11 22:10:00 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ typedef struct s_shared
 {
 	t_fork			*left_fork;
 	t_fork			*right_fork;
+	t_fork			*first_fork;
+	t_fork			*last_fork;
 	long int		*start_time;
 	int				*need_stop;
 	pthread_mutex_t	**start_time_mutex;

@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 16:47:48 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/11 18:13:10 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/11 22:13:01 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ static void	init_observer(t_data *data)
 	data->observer->philosophers = &data->philosophers;
 	data->observer->need_stop = &(data->need_stop);
 	data->observer->need_stop_mutex = &(data->need_stop_mutex);
-	data->observer->number_of_philosophers = data->config->number_of_philosophers;
+	data->observer->number_of_philosophers
+		= data->config->number_of_philosophers;
 	data->observer->time_to_die = data->config->time_to_die;
 }
 
@@ -64,8 +65,17 @@ static void	init_philosophers_shared_vars(t_philosopher *philo, t_data *data)
 	philo->shared->need_stop = &(data->need_stop);
 	philo->shared->start_time_mutex = &(data->start_time_mutex);
 	philo->shared->need_stop_mutex = &(data->need_stop_mutex);
+	if (philo->id % 2 == 0)
+	{
+		philo->shared->first_fork = philo->shared->left_fork;
+		philo->shared->last_fork = philo->shared->right_fork;
+	}
+	else
+	{
+		philo->shared->first_fork = philo->shared->right_fork;
+		philo->shared->last_fork = philo->shared->left_fork;
+	}
 }
-
 
 static void	prepare_mutexes(t_data *data)
 {

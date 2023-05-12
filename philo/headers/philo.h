@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 17:27:17 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/11 17:17:19 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/11 21:27:39 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,10 @@ void		init_simulation(t_data *data);
 
 // observer thread
 void		*observer_routine(void *observer_data);
+
+// fork_utils
+int			get_fork(t_fork *fork);
+int			leave_fork(t_fork *fork);
 
 // Utils
 int			validate_int(char *arg);

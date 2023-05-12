@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 14:07:13 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/11 18:15:04 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/11 22:13:15 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,20 @@ void	init_simulation(t_data *data)
 	index = 0;
 	thread_join_index = 0;
 	define_start_time(data);
-	pthread_create(data->observer_thread, NULL, &observer_routine, data->observer);
 	while ((index < data->config->number_of_philosophers))
 	{
 		pthread_create(data->philo_threads[index],
 			NULL, &philosopher_routine, data->philosophers[index]);
 		index++;
 	}
-	pthread_join((*data->observer_thread), NULL);
+	pthread_create(data->observer_thread,
+		NULL, &observer_routine, data->observer);
 	while ((thread_join_index < data->config->number_of_philosophers))
 	{
 		pthread_join((*data->philo_threads[thread_join_index]), NULL);
 		thread_join_index++;
 	}
+	pthread_join((*data->observer_thread), NULL);
 }
 
 static void	define_start_time(t_data *data)
