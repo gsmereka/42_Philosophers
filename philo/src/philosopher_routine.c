@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 18:36:04 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/12 14:05:45 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/12 14:13:53 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,20 +66,13 @@ static int	philo_eat(t_philosopher *philo)
 {
 	long int	meal_time;
 
-	philo->eat_limit--;
 	meal_time = get_time_now() - philo->start_time;
-	if (philo->eat_limit)
-	{
-		pthread_mutex_lock(philo->shared->philo_status_mutex);
-		philo->shared->last_meal_time = meal_time;
-		pthread_mutex_unlock(philo->shared->philo_status_mutex);
-	}
-	else
-	{
-		pthread_mutex_lock(philo->shared->philo_status_mutex);
+	philo->eat_limit--;
+	pthread_mutex_lock(philo->shared->philo_status_mutex);
+	philo->shared->last_meal_time = meal_time;
+	if (!philo->eat_limit)
 		philo->shared->done = TRUE;
-		pthread_mutex_unlock(philo->shared->philo_status_mutex);
-	}
+	pthread_mutex_unlock(philo->shared->philo_status_mutex);
 	if (philo_need_stop(philo))
 		return (0);
 	printf("%ld %d is eating\n", meal_time, philo->id);
