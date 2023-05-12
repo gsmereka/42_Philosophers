@@ -6,7 +6,7 @@
 #    By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/02 17:20:24 by gsmereka          #+#    #+#              #
-#    Updated: 2023/05/11 21:27:22 by gsmereka         ###   ########.fr        #
+#    Updated: 2023/05/12 14:17:35 by gsmereka         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,6 @@ SRC 		=	src/main.c \
 				src/philosopher_routine.c \
 				src/get_time_now.c \
 				src/init_simulation.c \
-				src/fork_utils.c \
 				src/observer_routine.c \
 				src/free_data.c \
 				utils/ft_bzero.c \
@@ -49,7 +48,7 @@ OBJ_DIR		=	./obj
 
 HEADERS 	=	./headers/philo.h ./headers/structs.h
 
-# CCFLAGS 	=	-Wall -Wextra -Werror
+CCFLAGS 	=	-Wall -Wextra -Werror
 
 THREAD_FLAG =	-pthread
 
