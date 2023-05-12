@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 17:27:20 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/11 22:10:00 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/12 14:29:43 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct s_philosopher
 	int				time_to_eat;
 	int				time_to_sleep;
 	long int		start_time;
+	long int		timer;
 }	t_philosopher;
 
 typedef struct s_observer
