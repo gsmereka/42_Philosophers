@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 17:40:32 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/13 18:28:43 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/13 18:50:43 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int	observe_philosophers(t_observer *observer)
 		observer->current_time = get_time_now() - observer->start_time;
 		check_philo_status(philo, observer);
 		if (observer->current_time - observer->last_meal_time
-			> observer->time_to_die)
+			> observer->time_to_die + 5)
 		{
 			if (observer->missing_meals[philo])
 				kill_philosopher(observer->philosophers[0][philo], observer);
