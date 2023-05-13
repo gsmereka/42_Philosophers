@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 17:40:32 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/13 18:50:43 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/13 18:54:22 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,5 +93,5 @@ static void	kill_philosopher(t_philosopher *philo, t_observer *observer)
 	pthread_mutex_lock(*observer->need_stop_mutex);
 	*observer->need_stop = TRUE;
 	pthread_mutex_unlock(*observer->need_stop_mutex);
-	printf("%d %d died\n", get_time_now() - observer->start_time, philo->id);
+	printf("%d %d died\n", observer->current_time, philo->id);
 }
