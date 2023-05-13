@@ -6,14 +6,14 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 16:47:48 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/13 16:12:52 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/13 16:43:35 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/philo.h"
 
 static void	prepare_mutexes(t_data *data);
-static void	init_philosophers_shared_vars(t_philosopher *philo, t_data *data);
+static void	init_philosophers_more_vars(t_philosopher *philo, t_data *data);
 static void	init_philosophers(t_data *data);
 static void	init_observer(t_data *data);
 
@@ -46,7 +46,7 @@ static void	init_philosophers(t_data *data)
 		philo->time_to_die = data->config->time_to_die;
 		philo->time_to_eat = data->config->time_to_eat * 1000;
 		philo->time_to_sleep = data->config->time_to_sleep * 1000;
-		init_philosophers_shared_vars(philo, data);
+		init_philosophers_more_vars(philo, data);
 	}
 }
 
@@ -69,7 +69,7 @@ static void	init_observer(t_data *data)
 	data->observer->time_to_die = data->config->time_to_die;
 }
 
-static void	init_philosophers_shared_vars(t_philosopher *philo, t_data *data)
+static void	init_philosophers_more_vars(t_philosopher *philo, t_data *data)
 {
 	philo->need_stop = &(data->need_stop);
 	philo->need_stop_mutex = &(data->need_stop_mutex);

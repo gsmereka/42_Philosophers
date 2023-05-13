@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 17:27:20 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/13 16:16:14 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/13 16:42:52 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,21 +22,6 @@ typedef struct s_fork
 	int				available;
 	pthread_mutex_t	*mutex;
 }	t_fork;
-
-typedef struct s_shared
-{
-	t_fork			*left_fork;
-	t_fork			*right_fork;
-	t_fork			*first_fork;
-	t_fork			*last_fork;
-	int		*start_time;
-	int				*need_stop;
-	pthread_mutex_t	**start_time_mutex;
-	pthread_mutex_t	**need_stop_mutex;
-	pthread_mutex_t	*philo_status_mutex;
-	int		last_meal_time;
-	int				done;
-}	t_shared;
 
 typedef struct s_philosopher
 {
@@ -54,9 +39,9 @@ typedef struct s_philosopher
 	int				time_to_die;
 	int				time_to_eat;
 	int				time_to_sleep;
-	int		last_meal_time;
-	int		start_time;
-	int		timer;
+	int				last_meal_time;
+	int				start_time;
+	int				timer;
 }	t_philosopher;
 
 typedef struct s_observer
@@ -66,9 +51,9 @@ typedef struct s_observer
 	pthread_mutex_t	**need_stop_mutex;
 	int				*need_stop;
 	int				*missing_meals;
-	int		start_time;
-	int		last_meal_time;
-	int		current_time;
+	int				start_time;
+	int				last_meal_time;
+	int				current_time;
 	int				number_of_philosophers;
 	int				time_to_die;
 }	t_observer;
@@ -92,7 +77,7 @@ typedef struct s_data
 	pthread_t		*observer_thread;
 	pthread_mutex_t	*need_stop_mutex;
 	pthread_mutex_t	*start_time_mutex;
-	int		start_time;
+	int				start_time;
 	int				need_stop;
 }	t_data;
 

@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 12:41:41 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/13 16:02:42 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/13 17:23:39 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	set_config(char *argv[], t_data *data);
 static void	set_forks(t_data *data);
 static void	set_philosophers(t_data *data);
-static void	set_threads(t_data *data);
+static void	set_observer(t_data *data);
 
 void	init_data(char *argv[], t_data *data)
 {
@@ -23,30 +23,20 @@ void	init_data(char *argv[], t_data *data)
 	set_config(argv, data);
 	set_forks(data);
 	set_philosophers(data);
-	set_threads(data);
-	data->observer = ft_calloc(1, sizeof(t_observer));
-	if (!data->observer)
-		exit_error(12, "Fail to allocate observer memory\n", data);
-	data->observer->missing_meals
-		= ft_calloc(data->config->number_of_philosophers, sizeof(int));
-	if (!data->observer->missing_meals)
-		exit_error(12, "Fail to allocate observer memory\n", data);
+	set_observer(data);
 	data->start_time_mutex = ft_calloc(1, sizeof(pthread_mutex_t));
 	if (!data->start_time_mutex)
-		exit_error(12, "Fail to allocate start time mutex\n", data);
+		exit_error(12, "fail to allocate start time mutex\n", data);
 	data->need_stop_mutex = ft_calloc(1, sizeof(pthread_mutex_t));
 	if (!data->need_stop_mutex)
-		exit_error(12, "Fail to allocate need_stop_mutex\n", data);
+		exit_error(12, "fail to allocate need_stop_mutex\n", data);
 }
 
 static void	set_config(char *argv[], t_data *data)
 {
 	data->config = ft_calloc(1, sizeof(t_config));
 	if (!data->config)
-	{
-		exit_error(12, "Fail to allocate data config\n", data);
-		exit(12);
-	}
+		exit_error(12, "fail to allocate data config\n", data);
 	data->config->number_of_philosophers = ft_atoi(argv[1]);
 	data->config->time_to_die = ft_atoi(argv[2]);
 	data->config->time_to_eat = ft_atoi(argv[3]);
@@ -65,16 +55,16 @@ static void	set_forks(t_data *data)
 	data->forks = ft_calloc(data->config->number_of_philosophers + 1,
 			sizeof(t_fork));
 	if (!data->forks)
-		exit_error(12, "Fail to allocate forks array\n", data);
+		exit_error(12, "fail to allocate forks array\n", data);
 	i = 0;
 	while (i < data->config->number_of_philosophers)
 	{
 		data->forks[i] = ft_calloc(1, sizeof(t_fork));
 		if (!data->forks[i])
-			exit_error(12, "Fail to allocate fork struct\n", data);
+			exit_error(12, "fail to allocate fork struct\n", data);
 		data->forks[i]->mutex = ft_calloc(1, sizeof(pthread_mutex_t));
 		if (!data->forks[i]->mutex)
-			exit_error(12, "Fail to allocate fork struct\n", data);
+			exit_error(12, "fail to allocate fork struct\n", data);
 		data->forks[i]->available = TRUE;
 		i++;
 	}
@@ -84,41 +74,41 @@ static void	set_philosophers(t_data *data)
 {
 	int	i;
 
-	data->philosophers = ft_calloc(data->config->number_of_philosophers + 1,
-			sizeof(t_philosopher));
-	if (!data->philosophers)
-		exit_error(12, "Fail to allocate philosophers array\n", data);
-	i = 0;
-	while (i < data->config->number_of_philosophers)
-	{
-		data->philosophers[i] = ft_calloc(1, sizeof(t_philosopher));
-		if (!data->philosophers[i])
-			exit_error(12, "Fail to allocate philosopher struct\n", data);
-		data->philosophers[i]->philo_status_mutex
-			= ft_calloc(1, sizeof(pthread_mutex_t));
-		if (!data->philosophers[i]->philo_status_mutex)
-			exit_error(12, "Fail to allocate philosopher mutex\n", data);
-		i++;
-	}
-}
-
-static void	set_threads(t_data *data)
-{
-	int	i;
-
 	data->philo_threads
 		= ft_calloc(data->config->number_of_philosophers, sizeof(pthread_t));
 	if (!data->philo_threads)
-		exit_error(12, "Fail to allocate threads array\n", data);
+		exit_error(12, "fail to allocate threads array\n", data);
+	data->philosophers = ft_calloc(data->config->number_of_philosophers + 1,
+			sizeof(t_philosopher));
+	if (!data->philosophers)
+		exit_error(12, "fail to allocate philosophers array\n", data);
 	i = 0;
 	while (i < data->config->number_of_philosophers)
 	{
 		data->philo_threads[i] = ft_calloc(1, sizeof(pthread_t));
 		if (!data->philo_threads[i])
-			exit_error(12, "Fail to allocate philosopher struct\n", data);
+			exit_error(12, "fail to allocate philosopher struct\n", data);
+		data->philosophers[i] = ft_calloc(1, sizeof(t_philosopher));
+		if (!data->philosophers[i])
+			exit_error(12, "fail to allocate philosopher struct\n", data);
+		data->philosophers[i]->philo_status_mutex
+			= ft_calloc(1, sizeof(pthread_mutex_t));
+		if (!data->philosophers[i]->philo_status_mutex)
+			exit_error(12, "fail to allocate philosopher mutex\n", data);
 		i++;
 	}
+}
+
+static void	set_observer(t_data *data)
+{
 	data->observer_thread = ft_calloc(1, sizeof(pthread_t));
 	if (!data->observer_thread)
-		exit_error(12, "Fail to allocate observer threads\n", data);
+		exit_error(12, "fail to allocate observer threads\n", data);
+	data->observer = ft_calloc(1, sizeof(t_observer));
+	if (!data->observer)
+		exit_error(12, "fail to allocate observer memory\n", data);
+	data->observer->missing_meals
+		= ft_calloc(data->config->number_of_philosophers, sizeof(int));
+	if (!data->observer->missing_meals)
+		exit_error(12, "fail to allocate observer memory\n", data);
 }

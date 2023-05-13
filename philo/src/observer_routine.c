@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 17:40:32 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/13 16:36:26 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/13 16:41:05 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,12 @@ static int	observe_philosophers(t_observer *observer)
 	{
 		observer->current_time = get_time_now() - observer->start_time;
 		check_philo_status(philo, observer);
-		if (observer->missing_meals[philo])
+		if (observer->current_time - observer->last_meal_time
+			> observer->time_to_die)
 		{
-			if (observer->current_time - observer->last_meal_time
-				> observer->time_to_die)
-			{
+			if (observer->missing_meals[philo])
 				kill_philosopher(observer->philosophers[0][philo], observer);
-				return (0);
-			}
+			return (0);
 		}
 		philo++;
 	}
@@ -62,7 +60,6 @@ static int	philo_eat_all(t_observer *observer)
 
 	philo = 0;
 	dones = 0;
-	// printf("%d\n", observer->missing_meals[philo]);
 	while (philo < observer->number_of_philosophers)
 	{
 		if (!observer->missing_meals[philo])
