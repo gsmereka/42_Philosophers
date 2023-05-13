@@ -6,20 +6,20 @@
 #    By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/02 17:20:24 by gsmereka          #+#    #+#              #
-#    Updated: 2023/05/13 19:04:32 by gsmereka         ###   ########.fr        #
+#    Updated: 2023/05/13 20:11:30 by gsmereka         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME 		=	philo
 
 SRC 		=	src/main.c \
-				src/calculate_delay.c \
 				src/check_args.c \
 				src/validate_int.c \
 				src/init_data.c \
 				src/setup_threads.c \
 				src/finalize.c	\
 				src/philosopher_routine.c \
+				src/philosopher_actions.c \
 				src/get_time_now.c \
 				src/init_simulation.c \
 				src/observer_routine.c \

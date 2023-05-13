@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 12:41:41 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/13 17:23:15 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/13 19:58:38 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,13 @@ static int	null_or_negative_args(char *argv[])
 {
 	if (ft_atoi(argv[1]) < 1)
 		return (1);
-	if (ft_atoi(argv[2]) < 1)
+	if (ft_atoi(argv[2]) < 0)
 		return (1);
-	if (ft_atoi(argv[3]) < 1)
+	if (ft_atoi(argv[2]) < 0)
+		return (1);
+	if (ft_atoi(argv[2]) < 0)
+		return (1);
+	if (argv[5] && ft_atoi(argv[5]) < 1)
 		return (1);
 	return (0);
 }

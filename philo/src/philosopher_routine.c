@@ -6,16 +6,13 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 18:36:04 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/13 19:11:16 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/13 20:03:45 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/philo.h"
 
-static int	philo_eat(t_philosopher *philo);
-static int	philo_need_stop(t_philosopher *philo);
 static int	wait_forks(int forks, t_philosopher *philo);
-static void	philo_sleep_and_think(t_philosopher *philo);
 
 void	*philosopher_routine(void *philosopher)
 {
@@ -64,40 +61,7 @@ static int	wait_forks(int forks, t_philosopher *philo)
 	return (1);
 }
 
-static int	philo_eat(t_philosopher *philo)
-{
-	printf("%d %d is eating\n", philo->timer, philo->id);
-	philo->eat_limit--;
-	pthread_mutex_lock(philo->philo_status_mutex);
-	philo->last_meal_time = philo->timer;
-	philo->missing_meals = philo->eat_limit;
-	pthread_mutex_unlock(philo->philo_status_mutex);
-	if (philo_need_stop(philo))
-		return (0);
-	philo->delay_timer = (get_time_now() - philo->start_time - philo->timer) * 1000;
-	usleep(philo->time_to_eat - philo->delay_timer);
-	return (1);
-}
-
-static void	philo_sleep_and_think(t_philosopher *philo)
-{
-	philo->timer = get_time_now() - philo->start_time;
-	printf("%d %d is sleeping\n", philo->timer, philo->id);
-	pthread_mutex_lock(philo->fork_order[0]->mutex);
-	philo->fork_order[0]->available = TRUE;
-	pthread_mutex_unlock(philo->fork_order[0]->mutex);
-	pthread_mutex_lock(philo->fork_order[1]->mutex);
-	philo->fork_order[1]->available = TRUE;
-	pthread_mutex_unlock(philo->fork_order[1]->mutex);
-	philo->delay_timer = (get_time_now() - philo->start_time - philo->timer) * 1000;
-	usleep(philo->time_to_sleep - philo->delay_timer);
-	if (philo_need_stop(philo))
-		return ;
-	philo->timer = get_time_now() - philo->start_time;
-	printf("%d %d is thinking\n", philo->timer, philo->id);
-}
-
-static int	philo_need_stop(t_philosopher *philo)
+int	philo_need_stop(t_philosopher *philo)
 {
 	pthread_mutex_lock(*philo->need_stop_mutex);
 	if (*philo->need_stop)

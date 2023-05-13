@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 17:27:17 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/13 17:24:14 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/13 20:03:59 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,11 @@ void		free_data(t_data *data);
 
 // philosopher_routine
 void		*philosopher_routine(void *data);
+int			philo_need_stop(t_philosopher *philo);
+
+// philosopher actions
+int			philo_eat(t_philosopher *philo);
+void		philo_sleep_and_think(t_philosopher *philo);
 
 // prepare_threads
 void		init_simulation(t_data *data);
