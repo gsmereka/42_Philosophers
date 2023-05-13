@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 18:36:04 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/13 18:40:58 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/13 18:46:26 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static int	wait_forks(int forks, t_philosopher *philo)
 
 	index = 0;
 	if (philo->id % 2 == 1)
-		usleep(100);
+		usleep(10);
 	while (forks < 2)
 	{
 		pthread_mutex_lock(philo->fork_order[index]->mutex);
