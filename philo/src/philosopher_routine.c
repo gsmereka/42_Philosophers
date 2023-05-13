@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 18:36:04 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/13 16:36:26 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/13 17:59:33 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	philo_eat(t_philosopher *philo);
 static int	philo_need_stop(t_philosopher *philo);
-static int	philo_prepare_to_eat(int forks, t_philosopher *philo);
+static int	wait_forks(int forks, t_philosopher *philo);
 static void	philo_sleep_and_think(t_philosopher *philo);
 
 void	*philosopher_routine(void *philosopher)
@@ -24,40 +24,40 @@ void	*philosopher_routine(void *philosopher)
 	philo = (t_philosopher *)philosopher;
 	while (philo->eat_limit)
 	{
-		if (!philo_prepare_to_eat(0, philo))
+		if (!wait_forks(0, philo))
 			return (NULL);
-		philo->timer = get_time_now() - philo->start_time;
 		if (!philo_eat(philo))
 			return (NULL);
 		philo->timer = get_time_now() - philo->start_time;
 		philo_sleep_and_think(philo);
+		if (philo_need_stop(philo))
+			return (NULL);
 	}
 	return (NULL);
 }
 
-static int	philo_prepare_to_eat(int forks, t_philosopher *philo)
+static int	wait_forks(int forks, t_philosopher *philo)
 {
-	usleep(200);
+	int	index;
+
+	index = 0;
+	if (philo->id % 2 == 1)
+		usleep(200);
 	while (forks < 2)
 	{
-		pthread_mutex_lock(philo->first_fork->mutex);
-		if (philo->first_fork->available)
+		pthread_mutex_lock(philo->fork_order[index]->mutex);
+		if (philo->fork_order[index]->available)
 		{
-			philo->first_fork->available = FALSE;
+			philo->fork_order[index]->available = FALSE;
 			printf("%d %d has taken a fork\n",
 				get_time_now() - philo->start_time, philo->id);
 			forks++;
 		}
-		pthread_mutex_unlock(philo->first_fork->mutex);
-		pthread_mutex_lock(philo->last_fork->mutex);
-		if (philo->last_fork->available)
-		{
-			philo->last_fork->available = FALSE;
-			printf("%d %d has taken a fork\n",
-				get_time_now() - philo->start_time, philo->id);
-			forks++;
-		}
-		pthread_mutex_unlock(philo->last_fork->mutex);
+		pthread_mutex_unlock(philo->fork_order[index]->mutex);
+		if (!index)
+			index++;
+		else
+			index--;
 		if (philo_need_stop(philo))
 			return (0);
 	}
@@ -66,7 +66,7 @@ static int	philo_prepare_to_eat(int forks, t_philosopher *philo)
 
 static int	philo_eat(t_philosopher *philo)
 {
-	printf("%d %d is eating\n", philo->timer, philo->id);
+	printf("%d %d is eating\n", get_time_now() - philo->start_time, philo->id);
 	philo->eat_limit--;
 	pthread_mutex_lock(philo->philo_status_mutex);
 	philo->last_meal_time = philo->timer;
@@ -80,14 +80,17 @@ static int	philo_eat(t_philosopher *philo)
 
 static void	philo_sleep_and_think(t_philosopher *philo)
 {
+	philo->timer = get_time_now() - philo->start_time;
 	printf("%d %d is sleeping\n", philo->timer, philo->id);
-	pthread_mutex_lock(philo->first_fork->mutex);
-	philo->first_fork->available = TRUE;
-	pthread_mutex_unlock(philo->first_fork->mutex);
-	pthread_mutex_lock(philo->last_fork->mutex);
-	philo->last_fork->available = TRUE;
-	pthread_mutex_unlock(philo->last_fork->mutex);
+	pthread_mutex_lock(philo->fork_order[0]->mutex);
+	philo->fork_order[0]->available = TRUE;
+	pthread_mutex_unlock(philo->fork_order[0]->mutex);
+	pthread_mutex_lock(philo->fork_order[1]->mutex);
+	philo->fork_order[1]->available = TRUE;
+	pthread_mutex_unlock(philo->fork_order[1]->mutex);
 	usleep(philo->time_to_sleep);
+	if (philo_need_stop(philo))
+		return ;
 	printf("%d %d is thinking\n", philo->timer, philo->id);
 }
 

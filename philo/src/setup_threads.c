@@ -6,14 +6,14 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 16:47:48 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/13 16:43:35 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/13 17:49:33 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/philo.h"
 
 static void	prepare_mutexes(t_data *data);
-static void	init_philosophers_more_vars(t_philosopher *philo, t_data *data);
+static void	define_forks(t_philosopher *philo, t_data *data);
 static void	init_philosophers(t_data *data);
 static void	init_observer(t_data *data);
 
@@ -36,17 +36,13 @@ static void	init_philosophers(t_data *data)
 		philo->eat_limit
 			= data->config->number_of_times_each_philosopher_must_eat;
 		philo->missing_meals = philo->eat_limit;
-		philo->right_fork = data->forks[index];
-		if (index == 0)
-			philo->left_fork
-				= data->forks[data->config->number_of_philosophers - 1];
-		else
-			philo->left_fork = data->forks[index - 1];
 		philo->id = index + 1;
 		philo->time_to_die = data->config->time_to_die;
 		philo->time_to_eat = data->config->time_to_eat * 1000;
 		philo->time_to_sleep = data->config->time_to_sleep * 1000;
-		init_philosophers_more_vars(philo, data);
+		philo->need_stop = &(data->need_stop);
+		philo->need_stop_mutex = &(data->need_stop_mutex);
+		define_forks(philo, data);
 	}
 }
 
@@ -69,19 +65,26 @@ static void	init_observer(t_data *data)
 	data->observer->time_to_die = data->config->time_to_die;
 }
 
-static void	init_philosophers_more_vars(t_philosopher *philo, t_data *data)
+static void	define_forks(t_philosopher *philo, t_data *data)
 {
-	philo->need_stop = &(data->need_stop);
-	philo->need_stop_mutex = &(data->need_stop_mutex);
+	int	index;
+
+	index = philo->id - 1;
+	philo->right_fork = data->forks[index];
+	if (index == 0)
+		philo->left_fork
+			= data->forks[data->config->number_of_philosophers - 1];
+	else
+		philo->left_fork = data->forks[index - 1];
 	if (philo->id % 2 == 0)
 	{
-		philo->first_fork = philo->left_fork;
-		philo->last_fork = philo->right_fork;
+		philo->fork_order[0] = philo->left_fork;
+		philo->fork_order[1] = philo->right_fork;
 	}
 	else
 	{
-		philo->first_fork = philo->right_fork;
-		philo->last_fork = philo->left_fork;
+		philo->fork_order[0] = philo->right_fork;
+		philo->fork_order[1] = philo->left_fork;
 	}
 }
 

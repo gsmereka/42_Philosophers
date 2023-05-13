@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 17:38:31 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/13 16:03:02 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/13 17:38:19 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ static void	destroy_philosophers(t_data *data)
 		{
 			pthread_mutex_destroy(data->philosophers[i]
 				->philo_status_mutex);
+			free(data->philosophers[i]->fork_order);
 			free(data->philosophers[i]->philo_status_mutex);
 			free(data->philosophers[i]);
 			i++;

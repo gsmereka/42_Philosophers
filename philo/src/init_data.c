@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 12:41:41 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/13 17:23:39 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/13 17:52:27 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	set_config(char *argv[], t_data *data);
 static void	set_forks(t_data *data);
-static void	set_philosophers(t_data *data);
+static void	set_philosophers(int i, t_data *data);
 static void	set_observer(t_data *data);
 
 void	init_data(char *argv[], t_data *data)
@@ -22,7 +22,7 @@ void	init_data(char *argv[], t_data *data)
 	ft_bzero(data, sizeof(t_data));
 	set_config(argv, data);
 	set_forks(data);
-	set_philosophers(data);
+	set_philosophers(-1, data);
 	set_observer(data);
 	data->start_time_mutex = ft_calloc(1, sizeof(pthread_mutex_t));
 	if (!data->start_time_mutex)
@@ -53,7 +53,7 @@ static void	set_forks(t_data *data)
 	int	i;
 
 	data->forks = ft_calloc(data->config->number_of_philosophers + 1,
-			sizeof(t_fork));
+			sizeof(t_fork *));
 	if (!data->forks)
 		exit_error(12, "fail to allocate forks array\n", data);
 	i = 0;
@@ -70,20 +70,17 @@ static void	set_forks(t_data *data)
 	}
 }
 
-static void	set_philosophers(t_data *data)
+static void	set_philosophers(int i, t_data *data)
 {
-	int	i;
-
 	data->philo_threads
-		= ft_calloc(data->config->number_of_philosophers, sizeof(pthread_t));
+		= ft_calloc(data->config->number_of_philosophers, sizeof(pthread_t *));
 	if (!data->philo_threads)
 		exit_error(12, "fail to allocate threads array\n", data);
 	data->philosophers = ft_calloc(data->config->number_of_philosophers + 1,
-			sizeof(t_philosopher));
+			sizeof(t_philosopher *));
 	if (!data->philosophers)
 		exit_error(12, "fail to allocate philosophers array\n", data);
-	i = 0;
-	while (i < data->config->number_of_philosophers)
+	while (++i < data->config->number_of_philosophers)
 	{
 		data->philo_threads[i] = ft_calloc(1, sizeof(pthread_t));
 		if (!data->philo_threads[i])
@@ -91,11 +88,11 @@ static void	set_philosophers(t_data *data)
 		data->philosophers[i] = ft_calloc(1, sizeof(t_philosopher));
 		if (!data->philosophers[i])
 			exit_error(12, "fail to allocate philosopher struct\n", data);
+		data->philosophers[i]->fork_order = ft_calloc(3, sizeof(t_fork *));
 		data->philosophers[i]->philo_status_mutex
 			= ft_calloc(1, sizeof(pthread_mutex_t));
 		if (!data->philosophers[i]->philo_status_mutex)
 			exit_error(12, "fail to allocate philosopher mutex\n", data);
-		i++;
 	}
 }
 

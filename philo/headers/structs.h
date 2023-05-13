@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 17:27:20 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/13 16:42:52 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/13 17:35:18 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@ typedef struct s_philosopher
 	int				id;
 	t_fork			*left_fork;
 	t_fork			*right_fork;
-	t_fork			*first_fork;
-	t_fork			*last_fork;
+	t_fork			**fork_order;
 	pthread_mutex_t	**start_time_mutex;
 	pthread_mutex_t	**need_stop_mutex;
 	pthread_mutex_t	*philo_status_mutex;
