@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 18:36:04 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/13 17:59:33 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/13 18:04:16 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	*philosopher_routine(void *philosopher)
 			return (NULL);
 		if (!philo_eat(philo))
 			return (NULL);
-		philo->timer = get_time_now() - philo->start_time;
 		philo_sleep_and_think(philo);
 		if (philo_need_stop(philo))
 			return (NULL);
@@ -66,7 +65,8 @@ static int	wait_forks(int forks, t_philosopher *philo)
 
 static int	philo_eat(t_philosopher *philo)
 {
-	printf("%d %d is eating\n", get_time_now() - philo->start_time, philo->id);
+	philo->timer = get_time_now() - philo->start_time;
+	printf("%d %d is eating\n", philo->timer, philo->id);
 	philo->eat_limit--;
 	pthread_mutex_lock(philo->philo_status_mutex);
 	philo->last_meal_time = philo->timer;
@@ -91,6 +91,7 @@ static void	philo_sleep_and_think(t_philosopher *philo)
 	usleep(philo->time_to_sleep);
 	if (philo_need_stop(philo))
 		return ;
+	philo->timer = get_time_now() - philo->start_time;
 	printf("%d %d is thinking\n", philo->timer, philo->id);
 }
 
