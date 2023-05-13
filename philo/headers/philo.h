@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 17:27:17 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/12 14:17:26 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/13 16:16:07 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@
 void		init_data(char *argv[], t_data *data);
 void		setup_threads(t_data *data);
 void		check_args(int argc, char *argv[]);
-long int	get_time_now(void);
+int	get_time_now(void);
 void		exit_error(int status, char *msg, t_data *data);
 void		finalize(t_data *data);
 void		free_data(t_data *data);

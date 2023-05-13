@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 12:41:41 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/11 18:10:05 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/13 16:02:42 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ void	init_data(char *argv[], t_data *data)
 	data->observer = ft_calloc(1, sizeof(t_observer));
 	if (!data->observer)
 		exit_error(12, "Fail to allocate observer memory\n", data);
-	data->observer->philo_done
+	data->observer->missing_meals
 		= ft_calloc(data->config->number_of_philosophers, sizeof(int));
-	if (!data->observer->philo_done)
+	if (!data->observer->missing_meals)
 		exit_error(12, "Fail to allocate observer memory\n", data);
 	data->start_time_mutex = ft_calloc(1, sizeof(pthread_mutex_t));
 	if (!data->start_time_mutex)
@@ -94,12 +94,9 @@ static void	set_philosophers(t_data *data)
 		data->philosophers[i] = ft_calloc(1, sizeof(t_philosopher));
 		if (!data->philosophers[i])
 			exit_error(12, "Fail to allocate philosopher struct\n", data);
-		data->philosophers[i]->shared = ft_calloc(1, sizeof(t_shared));
-		if (!data->philosophers[i]->shared)
-			exit_error(12, "Fail to allocate philosopher shared struct\n", data);
-		data->philosophers[i]->shared->philo_status_mutex
+		data->philosophers[i]->philo_status_mutex
 			= ft_calloc(1, sizeof(pthread_mutex_t));
-		if (!data->philosophers[i]->shared->philo_status_mutex)
+		if (!data->philosophers[i]->philo_status_mutex)
 			exit_error(12, "Fail to allocate philosopher mutex\n", data);
 		i++;
 	}

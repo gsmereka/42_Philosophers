@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 17:27:20 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/12 14:29:43 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/13 16:16:14 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,25 +29,34 @@ typedef struct s_shared
 	t_fork			*right_fork;
 	t_fork			*first_fork;
 	t_fork			*last_fork;
-	long int		*start_time;
+	int		*start_time;
 	int				*need_stop;
 	pthread_mutex_t	**start_time_mutex;
 	pthread_mutex_t	**need_stop_mutex;
 	pthread_mutex_t	*philo_status_mutex;
-	long int		last_meal_time;
+	int		last_meal_time;
 	int				done;
 }	t_shared;
 
 typedef struct s_philosopher
 {
-	t_shared		*shared;
 	int				id;
+	t_fork			*left_fork;
+	t_fork			*right_fork;
+	t_fork			*first_fork;
+	t_fork			*last_fork;
+	pthread_mutex_t	**start_time_mutex;
+	pthread_mutex_t	**need_stop_mutex;
+	pthread_mutex_t	*philo_status_mutex;
+	int				missing_meals;
+	int				*need_stop;
 	int				eat_limit;
 	int				time_to_die;
 	int				time_to_eat;
 	int				time_to_sleep;
-	long int		start_time;
-	long int		timer;
+	int		last_meal_time;
+	int		start_time;
+	int		timer;
 }	t_philosopher;
 
 typedef struct s_observer
@@ -56,10 +65,10 @@ typedef struct s_observer
 	pthread_mutex_t	**start_time_mutex;
 	pthread_mutex_t	**need_stop_mutex;
 	int				*need_stop;
-	int				*philo_done;
-	long int		start_time;
-	long int		last_meal_time;
-	long int		current_time;
+	int				*missing_meals;
+	int		start_time;
+	int		last_meal_time;
+	int		current_time;
 	int				number_of_philosophers;
 	int				time_to_die;
 }	t_observer;
@@ -83,7 +92,7 @@ typedef struct s_data
 	pthread_t		*observer_thread;
 	pthread_mutex_t	*need_stop_mutex;
 	pthread_mutex_t	*start_time_mutex;
-	long int		start_time;
+	int		start_time;
 	int				need_stop;
 }	t_data;
 

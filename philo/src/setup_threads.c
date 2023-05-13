@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 16:47:48 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/11 22:13:01 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/13 16:12:52 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,13 @@ static void	init_philosophers(t_data *data)
 		philo = data->philosophers[index];
 		philo->eat_limit
 			= data->config->number_of_times_each_philosopher_must_eat;
-		philo->shared->right_fork = data->forks[index];
+		philo->missing_meals = philo->eat_limit;
+		philo->right_fork = data->forks[index];
 		if (index == 0)
-			philo->shared->left_fork
+			philo->left_fork
 				= data->forks[data->config->number_of_philosophers - 1];
 		else
-			philo->shared->left_fork = data->forks[index - 1];
+			philo->left_fork = data->forks[index - 1];
 		philo->id = index + 1;
 		philo->time_to_die = data->config->time_to_die;
 		philo->time_to_eat = data->config->time_to_eat * 1000;
@@ -51,6 +52,15 @@ static void	init_philosophers(t_data *data)
 
 static void	init_observer(t_data *data)
 {
+	int	i;
+
+	i = 0;
+	while (i < data->config->number_of_philosophers)
+	{
+		data->observer->missing_meals[i]
+			= data->config->number_of_times_each_philosopher_must_eat;
+		i++;
+	}
 	data->observer->philosophers = &data->philosophers;
 	data->observer->need_stop = &(data->need_stop);
 	data->observer->need_stop_mutex = &(data->need_stop_mutex);
@@ -61,19 +71,17 @@ static void	init_observer(t_data *data)
 
 static void	init_philosophers_shared_vars(t_philosopher *philo, t_data *data)
 {
-	philo->shared->start_time = &(data->start_time);
-	philo->shared->need_stop = &(data->need_stop);
-	philo->shared->start_time_mutex = &(data->start_time_mutex);
-	philo->shared->need_stop_mutex = &(data->need_stop_mutex);
+	philo->need_stop = &(data->need_stop);
+	philo->need_stop_mutex = &(data->need_stop_mutex);
 	if (philo->id % 2 == 0)
 	{
-		philo->shared->first_fork = philo->shared->left_fork;
-		philo->shared->last_fork = philo->shared->right_fork;
+		philo->first_fork = philo->left_fork;
+		philo->last_fork = philo->right_fork;
 	}
 	else
 	{
-		philo->shared->first_fork = philo->shared->right_fork;
-		philo->shared->last_fork = philo->shared->left_fork;
+		philo->first_fork = philo->right_fork;
+		philo->last_fork = philo->left_fork;
 	}
 }
 
@@ -88,7 +96,7 @@ static void	prepare_mutexes(t_data *data)
 	{
 		pthread_mutex_init(data->forks[index]->mutex, NULL);
 		pthread_mutex_init(data->philosophers[index]
-			->shared->philo_status_mutex, NULL);
+			->philo_status_mutex, NULL);
 		index++;
 	}
 }

@@ -6,13 +6,13 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 16:53:18 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/10 16:53:35 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/13 16:16:07 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/philo.h"
 
-long int	get_time_now(void)
+int	get_time_now(void)
 {
 	struct timeval	time;
 

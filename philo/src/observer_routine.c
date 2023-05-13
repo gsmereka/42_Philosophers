@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 17:40:32 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/12 14:18:15 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/13 16:36:26 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static int	observe_philosophers(t_observer *observer)
 	{
 		observer->current_time = get_time_now() - observer->start_time;
 		check_philo_status(philo, observer);
-		if (!observer->philo_done[philo])
+		if (observer->missing_meals[philo])
 		{
 			if (observer->current_time - observer->last_meal_time
 				> observer->time_to_die)
@@ -62,9 +62,10 @@ static int	philo_eat_all(t_observer *observer)
 
 	philo = 0;
 	dones = 0;
+	// printf("%d\n", observer->missing_meals[philo]);
 	while (philo < observer->number_of_philosophers)
 	{
-		if (observer->philo_done[philo] == TRUE)
+		if (!observer->missing_meals[philo])
 			dones++;
 		philo++;
 	}
@@ -81,15 +82,13 @@ static int	philo_eat_all(t_observer *observer)
 static void	check_philo_status(int philo, t_observer *observer)
 {
 	pthread_mutex_lock(observer->philosophers[0][philo]
-		->shared->philo_status_mutex);
+		->philo_status_mutex);
 	observer->last_meal_time = observer->philosophers[0][philo]
-		->shared->last_meal_time;
-	if (observer->philosophers[0][philo]->shared->done)
-	{
-		observer->philo_done[philo] = TRUE;
-	}
+		->last_meal_time;
+	observer->missing_meals[philo]
+		= observer->philosophers[0][philo]->missing_meals;
 	pthread_mutex_unlock(observer->philosophers[0][philo]
-		->shared->philo_status_mutex);
+		->philo_status_mutex);
 }
 
 static void	kill_philosopher(t_philosopher *philo, t_observer *observer)
@@ -97,5 +96,5 @@ static void	kill_philosopher(t_philosopher *philo, t_observer *observer)
 	pthread_mutex_lock(*observer->need_stop_mutex);
 	*observer->need_stop = TRUE;
 	pthread_mutex_unlock(*observer->need_stop_mutex);
-	printf("%ld %d died ----------------- DEAD\n", get_time_now() - observer->start_time, philo->id);
+	printf("%d %d died ----------------- DEAD\n", get_time_now() - observer->start_time, philo->id);
 }
