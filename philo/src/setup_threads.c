@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 16:47:48 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/13 17:49:33 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/13 19:00:24 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,6 @@ static void	prepare_mutexes(t_data *data)
 
 	index = 0;
 	pthread_mutex_init(data->need_stop_mutex, NULL);
-	pthread_mutex_init(data->start_time_mutex, NULL);
 	while ((index < data->config->number_of_philosophers))
 	{
 		pthread_mutex_init(data->forks[index]->mutex, NULL);

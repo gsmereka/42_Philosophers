@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 17:27:20 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/13 17:35:18 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/13 19:06:16 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ typedef struct s_philosopher
 	t_fork			*left_fork;
 	t_fork			*right_fork;
 	t_fork			**fork_order;
-	pthread_mutex_t	**start_time_mutex;
 	pthread_mutex_t	**need_stop_mutex;
 	pthread_mutex_t	*philo_status_mutex;
 	int				missing_meals;
@@ -41,12 +40,12 @@ typedef struct s_philosopher
 	int				last_meal_time;
 	int				start_time;
 	int				timer;
+	int				delay_timer;
 }	t_philosopher;
 
 typedef struct s_observer
 {
 	t_philosopher	***philosophers;
-	pthread_mutex_t	**start_time_mutex;
 	pthread_mutex_t	**need_stop_mutex;
 	int				*need_stop;
 	int				*missing_meals;
@@ -75,7 +74,6 @@ typedef struct s_data
 	pthread_t		**philo_threads;
 	pthread_t		*observer_thread;
 	pthread_mutex_t	*need_stop_mutex;
-	pthread_mutex_t	*start_time_mutex;
 	int				start_time;
 	int				need_stop;
 }	t_data;

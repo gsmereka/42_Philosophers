@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 17:38:31 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/13 17:38:19 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/13 19:00:06 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,6 @@ void	free_data(t_data *data)
 			data->config->number_of_philosophers);
 	if (data->observer_thread)
 		free(data->observer_thread);
-	if (data->start_time_mutex)
-	{
-		pthread_mutex_destroy(data->start_time_mutex);
-		free(data->start_time_mutex);
-	}
 	if (data->need_stop_mutex)
 	{
 		pthread_mutex_destroy(data->need_stop_mutex);

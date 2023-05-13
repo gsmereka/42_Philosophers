@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 12:41:41 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/13 17:52:27 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/13 18:59:51 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,6 @@ void	init_data(char *argv[], t_data *data)
 	set_forks(data);
 	set_philosophers(-1, data);
 	set_observer(data);
-	data->start_time_mutex = ft_calloc(1, sizeof(pthread_mutex_t));
-	if (!data->start_time_mutex)
-		exit_error(12, "fail to allocate start time mutex\n", data);
 	data->need_stop_mutex = ft_calloc(1, sizeof(pthread_mutex_t));
 	if (!data->need_stop_mutex)
 		exit_error(12, "fail to allocate need_stop_mutex\n", data);

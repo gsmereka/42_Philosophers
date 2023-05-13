@@ -6,13 +6,14 @@
 #    By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/02 17:20:24 by gsmereka          #+#    #+#              #
-#    Updated: 2023/05/13 15:26:10 by gsmereka         ###   ########.fr        #
+#    Updated: 2023/05/13 19:04:32 by gsmereka         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME 		=	philo
 
 SRC 		=	src/main.c \
+				src/calculate_delay.c \
 				src/check_args.c \
 				src/validate_int.c \
 				src/init_data.c \
