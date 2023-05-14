@@ -6,7 +6,7 @@
 #    By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/02 17:20:24 by gsmereka          #+#    #+#              #
-#    Updated: 2023/05/14 17:06:32 by gsmereka         ###   ########.fr        #
+#    Updated: 2023/05/14 19:26:31 by gsmereka         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,24 +24,15 @@ SRC 		=	src/main.c \
 				src/init_simulation.c \
 				src/observer_routine.c \
 				src/free_data.c \
+				utils/ft_atoi.c \
 				utils/ft_bzero.c \
-				utils/ft_isdigit.c \
-				utils/ft_itohex.c \
-				utils/ft_putchar_fd.c \
-				utils/ft_split.c \
-				utils/ft_strdup.c \
-				utils/ft_strlcpy.c \
-				utils/ft_strncmp.c \
-				utils/ft_toupper.c \
 				utils/ft_calloc.c \
+				utils/ft_strlen.c \
 				utils/ft_itoa.c \
 				utils/ft_putstr_fd.c \
-				utils/ft_strchr.c \
-				utils/ft_strjoin.c \
-				utils/ft_strlen.c \
-				utils/ft_substr.c \
-				utils/ft_utoa.c \
-				utils/ft_atoi.c \
+				utils/ft_isdigit.c \
+				utils/ft_strncmp.c \
+				utils/ft_strdup.c \
 
 OBJ 		=	$(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
 
@@ -49,7 +40,7 @@ OBJ_DIR		=	./obj
 
 HEADERS 	=	./headers/philo.h ./headers/structs.h
 
-# CCFLAGS 	=	-Wall -Wextra -Werror
+CCFLAGS 	=	-Wall -Wextra -Werror
 
 THREAD_FLAG =	-pthread
 
