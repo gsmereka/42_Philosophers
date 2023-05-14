@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 18:36:04 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/14 10:40:28 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/14 11:57:04 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@ int	philo_eat(t_philosopher *philo)
 	att_status(philo);
 	if (philo_need_stop(philo))
 		return (0);
-	printf("%d %d is eating\n", philo->timer, philo->id);
+	// printf("%d %d is eating\n", 2, 2);
 	wait_eating_time(philo);
 	return (1);
 }
 
 void	philo_sleep_and_think(t_philosopher *philo)
 {
-	printf("%d %d is sleeping\n", philo->timer, philo->id);
+	// printf("%d %d is sleeping\n", 2, 2);
 	pthread_mutex_lock(philo->fork_order[0]->mutex);
 	pthread_mutex_lock(philo->fork_order[1]->mutex);
 	philo->fork_order[0]->available = TRUE;
@@ -39,7 +39,7 @@ void	philo_sleep_and_think(t_philosopher *philo)
 	if (philo_need_stop(philo))
 		return ;
 	philo->timer = get_time_now() - philo->start_time;
-	printf("%d %d is thinking\n", philo->timer, philo->id);
+	// printf("%d %d is thinking\n", 2, 2);
 }
 
 static void	wait_eating_time(t_philosopher *philo)

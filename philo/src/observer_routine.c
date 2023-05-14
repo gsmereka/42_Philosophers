@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 17:40:32 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/13 18:54:22 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/14 10:52:51 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,12 @@ static int	observe_philosophers(t_observer *observer)
 			> observer->time_to_die + 5)
 		{
 			if (observer->missing_meals[philo])
-				kill_philosopher(observer->philosophers[0][philo], observer);
+			{
+				pthread_mutex_lock(*observer->need_stop_mutex);
+				*observer->need_stop = TRUE;
+				pthread_mutex_unlock(*observer->need_stop_mutex);
+				// kill_philosopher(observer->philosophers[0][philo], observer);
+			}
 			return (0);
 		}
 		philo++;
@@ -93,5 +98,5 @@ static void	kill_philosopher(t_philosopher *philo, t_observer *observer)
 	pthread_mutex_lock(*observer->need_stop_mutex);
 	*observer->need_stop = TRUE;
 	pthread_mutex_unlock(*observer->need_stop_mutex);
-	printf("%d %d died\n", observer->current_time, philo->id);
+	printf("%d %d died\n", 0, 0);
 }
