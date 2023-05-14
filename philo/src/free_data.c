@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 17:38:31 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/14 16:15:48 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/14 16:23:18 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,11 @@ void	free_data(t_data *data)
 	{
 		pthread_mutex_destroy(data->need_stop_mutex);
 		free(data->need_stop_mutex);
+	}
+	if (data->print_mutex)
+	{
+		pthread_mutex_destroy(data->print_mutex);
+		free(data->print_mutex);
 	}
 	if (data->philo_status)
 		free_generic_array((void **)data->philo_status,

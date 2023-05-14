@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 18:36:04 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/14 16:10:16 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/14 16:27:08 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,12 @@ static int	wait_forks(int forks, t_philosopher *philo)
 			philo->timer = get_time_now() - philo->start_time;
 			philo->fork_order[0]->available = FALSE;
 			philo->fork_order[1]->available = FALSE;
-			// printf("%d %d has taken a fork\n",
-			// 	2, 2);
-			// printf("%d %d has taken a fork\n",
-			// 	2, 2);
+			pthread_mutex_lock(*philo->print_mutex);
+			printf("%d %d has taken a fork\n",
+				philo->timer, philo->id);
+			printf("%d %d has taken a fork\n",
+				philo->timer, philo->id);
+			pthread_mutex_unlock(*philo->print_mutex);
 			forks++;
 		}
 		pthread_mutex_unlock(philo->fork_order[0]->mutex);

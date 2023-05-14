@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 16:47:48 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/14 16:09:01 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/14 16:23:43 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ static void	init_philosophers(t_data *data)
 		philo->time_to_sleep = data->config->time_to_sleep * 1000;
 		philo->status->need_stop = &(data->need_stop);
 		philo->status->need_stop_mutex = &(data->need_stop_mutex);
+		philo->print_mutex = &(data->print_mutex);
 		define_forks(philo, data);
 	}
 }
@@ -61,6 +62,7 @@ static void	init_observer(t_data *data)
 	}
 	data->observer->need_stop = &(data->need_stop);
 	data->observer->need_stop_mutex = &(data->need_stop_mutex);
+	data->observer->print_mutex = &(data->print_mutex);
 	data->observer->number_of_philosophers
 		= data->config->number_of_philosophers;
 	data->observer->time_to_die = data->config->time_to_die;
@@ -95,6 +97,7 @@ static void	prepare_mutexes(t_data *data)
 
 	index = 0;
 	pthread_mutex_init(data->need_stop_mutex, NULL);
+	pthread_mutex_init(data->print_mutex, NULL);
 	while ((index < data->config->number_of_philosophers))
 	{
 		pthread_mutex_init(data->philo_status[index]->status_mutex, NULL);

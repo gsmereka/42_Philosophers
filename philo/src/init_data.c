@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 12:41:41 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/14 16:08:12 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/14 16:22:35 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,9 @@ void	init_data(char *argv[], t_data *data)
 	data->need_stop_mutex = ft_calloc(1, sizeof(pthread_mutex_t));
 	if (!data->need_stop_mutex)
 		exit_error(12, "fail to allocate need_stop_mutex\n", data);
+	data->print_mutex = ft_calloc(1, sizeof(pthread_mutex_t));
+	if (!data->print_mutex)
+		exit_error(12, "fail to allocate print_mutex\n", data);
 	data->philo_status = ft_calloc(data->config->number_of_philosophers + 1, sizeof(t_status *));
 	if (!data->philo_status)
 		exit_error(12, "fail to allocate philo status array\n", data);
