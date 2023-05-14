@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 12:41:41 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/13 18:59:51 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/14 16:08:12 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ static void	set_observer(t_data *data);
 
 void	init_data(char *argv[], t_data *data)
 {
+	int	i;
+
 	ft_bzero(data, sizeof(t_data));
 	set_config(argv, data);
 	set_forks(data);
@@ -27,6 +29,21 @@ void	init_data(char *argv[], t_data *data)
 	data->need_stop_mutex = ft_calloc(1, sizeof(pthread_mutex_t));
 	if (!data->need_stop_mutex)
 		exit_error(12, "fail to allocate need_stop_mutex\n", data);
+	data->philo_status = ft_calloc(data->config->number_of_philosophers + 1, sizeof(t_status *));
+	if (!data->philo_status)
+		exit_error(12, "fail to allocate philo status array\n", data);
+	i = 0;
+	while (i < data->config->number_of_philosophers)
+	{
+		data->philo_status[i] = ft_calloc(1, sizeof(t_status));
+		if (!data->philo_status[i])
+			exit_error(12, "fail to allocate philo status\n", data);
+		data->philo_status[i]->status_mutex
+			= ft_calloc(1, sizeof(pthread_mutex_t));
+		if (!data->philo_status[i]->status_mutex)
+			exit_error(12, "fail to allocate status mutex\n", data);
+		i++;
+	}
 }
 
 static void	set_config(char *argv[], t_data *data)
@@ -86,10 +103,6 @@ static void	set_philosophers(int i, t_data *data)
 		if (!data->philosophers[i])
 			exit_error(12, "fail to allocate philosopher struct\n", data);
 		data->philosophers[i]->fork_order = ft_calloc(3, sizeof(t_fork *));
-		data->philosophers[i]->philo_status_mutex
-			= ft_calloc(1, sizeof(pthread_mutex_t));
-		if (!data->philosophers[i]->philo_status_mutex)
-			exit_error(12, "fail to allocate philosopher mutex\n", data);
 	}
 }
 

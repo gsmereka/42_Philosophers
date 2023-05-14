@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 18:36:04 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/14 11:57:04 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/14 16:11:04 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ static void	wait_sleeping_time(t_philosopher *philo)
 static void	att_status(t_philosopher *philo)
 {
 	philo->eat_limit--;
-	pthread_mutex_lock(philo->philo_status_mutex);
-	philo->last_meal_time = philo->timer;
-	philo->missing_meals--;
-	pthread_mutex_unlock(philo->philo_status_mutex);
+	pthread_mutex_lock(philo->status->status_mutex);
+	philo->status->last_meal_time = philo->timer;
+	philo->status->missing_meals--;
+	pthread_mutex_unlock(philo->status->status_mutex);
 }

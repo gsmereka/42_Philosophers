@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 18:36:04 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/14 11:24:36 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/14 16:10:16 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,12 @@ static int	wait_forks(int forks, t_philosopher *philo)
 
 int	philo_need_stop(t_philosopher *philo)
 {
-	pthread_mutex_lock(*philo->need_stop_mutex);
-	if (*philo->need_stop)
+	pthread_mutex_lock(*philo->status->need_stop_mutex);
+	if (*philo->status->need_stop)
 	{
-		pthread_mutex_unlock(*philo->need_stop_mutex);
+		pthread_mutex_unlock(*philo->status->need_stop_mutex);
 		return (1);
 	}
-	pthread_mutex_unlock(*philo->need_stop_mutex);
+	pthread_mutex_unlock(*philo->status->need_stop_mutex);
 	return (0);
 }
