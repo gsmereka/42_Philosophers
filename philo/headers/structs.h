@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 17:27:20 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/14 16:29:00 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/14 16:38:23 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct s_status
 
 typedef struct s_philosopher
 {
+	int				is_alone;
 	t_status		*status;
 	int				id;
 	t_fork			*left_fork;

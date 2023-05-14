@@ -6,7 +6,7 @@
 #    By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/02 17:20:24 by gsmereka          #+#    #+#              #
-#    Updated: 2023/05/14 16:17:28 by gsmereka         ###   ########.fr        #
+#    Updated: 2023/05/14 17:06:32 by gsmereka         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,7 @@ OBJ_DIR		=	./obj
 
 HEADERS 	=	./headers/philo.h ./headers/structs.h
 
-CCFLAGS 	=	-Wall -Wextra -Werror
+# CCFLAGS 	=	-Wall -Wextra -Werror
 
 THREAD_FLAG =	-pthread
 

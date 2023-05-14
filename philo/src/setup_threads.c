@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 16:47:48 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/14 16:23:43 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/14 16:49:05 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ static void	init_philosophers(t_data *data)
 	while (++index < data->config->number_of_philosophers)
 	{
 		philo = data->philosophers[index];
+		if (data->config->number_of_philosophers == 1)
+			philo->is_alone = TRUE;
 		philo->status = data->philo_status[index];
 		philo->eat_limit
 			= data->config->number_of_times_each_philosopher_must_eat;
