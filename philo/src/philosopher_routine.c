@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 18:36:04 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/14 18:44:12 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/14 18:47:33 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,15 @@ static void	get_forks(t_philosopher *philo);
 void	*philosopher_routine(void *philosopher)
 {
 	t_philosopher	*philo;
-	int				wait_time;
-	int				fix_time;
-	int				delay_timer;
+	int				loop_waiting_time;
+	int				loop_init_time;
+	int				loop_delay;
 
-	wait_time = 1000;
+	loop_waiting_time = 1000;
 	philo = (t_philosopher *)philosopher;
 	while (philo->eat_limit)
 	{
-		fix_time = get_time_now();
+		loop_init_time = get_time_now();
 		if (!wait_forks(0, philo))
 			return (NULL);
 		if (!philo_eat(philo))
@@ -35,10 +35,10 @@ void	*philosopher_routine(void *philosopher)
 		philo_sleep_and_think(philo);
 		if (philo_need_stop(philo))
 			return (NULL);
-		delay_timer = get_time_now() - fix_time;
-		if (wait_time - delay_timer > 0)
-			delay_timer = 0;
-		usleep(wait_time - delay_timer);
+		loop_delay = get_time_now() - loop_init_time;
+		if (loop_waiting_time - loop_delay > 0)
+			loop_delay = 0;
+		usleep(loop_waiting_time - loop_delay);
 	}
 	return (NULL);
 }
