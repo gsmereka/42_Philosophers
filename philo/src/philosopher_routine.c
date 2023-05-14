@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 18:36:04 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/14 18:47:33 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/14 18:59:56 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	*philosopher_routine(void *philosopher)
 	int				loop_init_time;
 	int				loop_delay;
 
-	loop_waiting_time = 1000;
+	loop_waiting_time = 5000;
 	philo = (t_philosopher *)philosopher;
 	while (philo->eat_limit)
 	{
