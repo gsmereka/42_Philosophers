@@ -6,7 +6,7 @@
 /*   By: gsmereka <gsmereka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 18:36:04 by gsmereka          #+#    #+#             */
-/*   Updated: 2023/05/13 20:10:31 by gsmereka         ###   ########.fr       */
+/*   Updated: 2023/05/14 10:40:28 by gsmereka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ void	philo_sleep_and_think(t_philosopher *philo)
 {
 	printf("%d %d is sleeping\n", philo->timer, philo->id);
 	pthread_mutex_lock(philo->fork_order[0]->mutex);
-	philo->fork_order[0]->available = TRUE;
-	pthread_mutex_unlock(philo->fork_order[0]->mutex);
 	pthread_mutex_lock(philo->fork_order[1]->mutex);
+	philo->fork_order[0]->available = TRUE;
 	philo->fork_order[1]->available = TRUE;
+	pthread_mutex_unlock(philo->fork_order[0]->mutex);
 	pthread_mutex_unlock(philo->fork_order[1]->mutex);
 	wait_sleeping_time(philo);
 	if (philo_need_stop(philo))
@@ -66,6 +66,6 @@ static void	att_status(t_philosopher *philo)
 	philo->eat_limit--;
 	pthread_mutex_lock(philo->philo_status_mutex);
 	philo->last_meal_time = philo->timer;
-	philo->missing_meals = philo->eat_limit;
+	philo->missing_meals--;
 	pthread_mutex_unlock(philo->philo_status_mutex);
 }
