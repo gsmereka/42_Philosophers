@@ -36,7 +36,7 @@ void	*philosopher_routine(void *philosopher)
 		if (philo_need_stop(philo))
 			return (NULL);
 		loop_delay = get_time_now() - loop_init_time;
-		if (loop_waiting_time - loop_delay > 0)
+		if (loop_waiting_time - loop_delay < 0)
 			loop_delay = 0;
 		usleep(loop_waiting_time - loop_delay);
 	}
